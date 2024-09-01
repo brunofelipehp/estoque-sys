@@ -1,3 +1,3 @@
 export const Main = () => {
-  return <h1>esse é meu main</h1>;
+	return <h1>esse é meu main</h1>;
 };
