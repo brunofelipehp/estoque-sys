@@ -10,8 +10,8 @@ export const Sidebar = () => {
 		<section
 			className={`${
 				isOpen
-					? "bg-[#6d28d9] min-h-screen w-[13rem] flex flex-col absolute z-50 gap-7 transition-all duration-200 ease-in-out"
-					: "bg-[#6d28d9] h-screen w-[4.875rem] flex flex-col  gap-7 transition-all duration-200 ease-in-out"
+					? "bg-violetPrimer w-[13rem] flex flex-col  z-50 gap-7 transition-all duration-200 ease-in-out"
+					: "bg-violetPrimer  w-[4.875rem] flex flex-col  gap-7 transition-all duration-200 ease-in-out"
 			}`}
 		>
 			<ul className="grid ml-5 gap-4">
