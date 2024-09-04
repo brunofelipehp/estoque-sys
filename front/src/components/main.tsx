@@ -14,7 +14,7 @@ export const Main = () => {
 		<>
 			<div className="flex flex-col w-full bg-zinc-50 mt-32">
 				<Dashboard />
-				<div className="p-6 mt-24 w-3/6 mx-auto space-y-7">
+				<div className="p-6  w-3/6 mx-auto space-y-7">
 					<div className="flex justify-end">
 						<Button
 							type="submit"

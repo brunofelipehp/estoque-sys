@@ -7,7 +7,7 @@ function App() {
 	return (
 		<div>
 			<Header />
-			<div className="flex bg-zinc-50 ">
+			<div className="flex bg-zinc-50 h-screen">
 				<Sidebar />
 				<Main />
 			</div>
