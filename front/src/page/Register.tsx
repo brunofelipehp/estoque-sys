@@ -1,27 +1,44 @@
 import { Button } from "@/components/ui/button";
-import { Header } from "../components/Header";
-
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Header } from "../components/Header";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
 import { useState } from "react";
 import { IoMdCloudUpload } from "react-icons/io";
 import { Sidebar } from "../components/Sidebar";
 
+const createRegisterSchema = z.object({
+	name: z.string().min(1, { message: "Digite o nome do produto" }),
+	supplier: z.string().min(1, { message: "Digite  o nome do fornecedor" }),
+	category: z.string().min(1, { message: "Digite  a categoria do produto" }),
+	costPrice: z
+		.string()
+		.min(1, { message: "Digite o Valor" })
+		.transform((value) => Number(value)),
+	salePrice: z
+		.string()
+		.min(1, { message: "Digite o Valor" })
+		.transform((value) => Number(value)),
+	description: z.string().min(1, { message: "Digite a descrição" }),
+});
+
+type SchemaRegister = z.infer<typeof createRegisterSchema>;
+
 export const Register = () => {
 	const [previewImage, setPreviewImage] = useState<string | null>(null);
-	const [name, setName] = useState<string>("")
+	//	const [name, setName] = useState<string>("");
 
-	const handleFormRegister = (event: React.FormEvent) => {
- 
-		event.preventDefault()
-		const form = event.target as HTMLFormElement;
-    const formData = new FormData(form);
-		const nameValue = formData.get('name') as string
-			setName(nameValue)
-			console.log(name);
-	}
+	const { register, handleSubmit } = useForm<SchemaRegister>({
+		resolver: zodResolver(createRegisterSchema),
+	});
 
-
+	const onSubmit = (data: SchemaRegister) => {
+		console.log(data);
+	};
 
 	const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0];
@@ -36,16 +53,21 @@ export const Register = () => {
 			reader.readAsDataURL(file);
 		}
 	};
+
 	return (
 		<>
 			<Header />
 			<div className="flex  bg-zinc-50">
 				<Sidebar />
 				<div className="flex justify-center mt-24 w-full">
-					<form onSubmit={handleFormRegister} className="w-3/6 flex flex-col gap-4 mb-20">
+					<form
+						onSubmit={handleSubmit(onSubmit)}
+						className="w-3/6 flex flex-col gap-4 mb-20"
+					>
 						<h2 className="text-center text-4xl font-bold">
 							Cadastro de Produto
 						</h2>
+
 						<div className="max-h-fit max-w-fit">
 							<label
 								htmlFor="input-image"
@@ -77,68 +99,58 @@ export const Register = () => {
 						</div>
 
 						<div>
-							<label htmlFor="nome" className="block">
-								Nome
-							</label>
+							<label className="block">Nome</label>
 							<Input
 								type="text"
 								className="border border-zinc-300 w-full p-4 rounded outline-indigo-400"
 								placeholder="Nome do produto"
-								name="name"
-								onChange={(e) => setName(e.target.value)}
+								{...register("name")}
 							/>
 						</div>
 						<div>
-							<label htmlFor="categoria" className="block">
-								Fornecedor
-							</label>
+							<label className="block">Fornecedor</label>
 							<Input
 								type="text"
 								className="border border-zinc-300 w-3/4 p-4 rounded outline-indigo-400"
 								placeholder="Fornecedor"
+								{...register("supplier")}
 							/>
 						</div>
 						<div>
-							<label htmlFor="categoria" className="block">
-								Categoria
-							</label>
+							<label className="block">Categoria</label>
 							<Input
 								type="text"
 								className="border border-zinc-300 w-2/3 p-4 rounded outline-indigo-400"
 								placeholder="Categoria"
+								{...register("category")}
 							/>
 						</div>
 						<div className="flex gap-2">
 							<div className="w-3/6">
-								<label htmlFor="nome" className="block">
-									Preço de custo
-								</label>
+								<label className="block">Preço de custo</label>
 								<Input
 									type="number"
 									className="border border-zinc-300 w-full  p-4 rounded outline-indigo-400"
-									placeholder=""
+									{...register("costPrice")}
 								/>
 							</div>
 							<div className="w-3/6">
-								<label htmlFor="nome" className="block">
-									Preço de venda
-								</label>
+								<label className="block">Preço de venda</label>
 								<Input
 									type="number"
 									className="border border-zinc-300 w-full p-4 rounded outline-indigo-400"
+									{...register("salePrice")}
 								/>
 							</div>
 						</div>
 
 						<div>
-							<label htmlFor="Fornecedor" className="block">
-								Descrição
-							</label>
+							<label className="block">Descrição</label>
 							<Textarea
-								name="description"
 								id="description"
 								placeholder="Descrição"
 								className="border border-zinc-300 w-full  p-4 rounded outline-indigo-400"
+								{...register("description")}
 							/>
 						</div>
 

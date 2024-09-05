@@ -1,0 +1,24 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Produto 1",
+      "supplier": "Fornecedor A",
+      "category": "Categoria X",
+      "costPrice": 100.0,
+      "salePrice": 150.0,
+      "description": "Descrição do produto 1",
+      "image": "/uploads/image1.png"
+    },
+    {
+      "id": 2,
+      "name": "Produto 2",
+      "supplier": "Fornecedor B",
+      "category": "Categoria Y",
+      "costPrice": 200.0,
+      "salePrice": 250.0,
+      "description": "Descrição do produto 2",
+      "image": "/uploads/image2.png"
+    }
+  ]
+}
