@@ -10,6 +10,8 @@ import { z } from "zod";
 import { useState } from "react";
 import { IoMdCloudUpload } from "react-icons/io";
 import { Sidebar } from "../components/Sidebar";
+import { v4 as uuidv4 } from 'uuid';
+import axios from "axios";
 
 const createRegisterSchema = z.object({
 	name: z.string().min(1, { message: "Digite o nome do produto" }),
@@ -24,6 +26,7 @@ const createRegisterSchema = z.object({
 		.min(1, { message: "Digite o Valor" })
 		.transform((value) => Number(value)),
 	description: z.string().min(1, { message: "Digite a descrição" }),
+	image: z.instanceof(File)
 });
 
 type SchemaRegister = z.infer<typeof createRegisterSchema>;
@@ -32,27 +35,78 @@ export const Register = () => {
 	const [previewImage, setPreviewImage] = useState<string | null>(null);
 	//	const [name, setName] = useState<string>("");
 
-	const { register, handleSubmit } = useForm<SchemaRegister>({
+	const { register, handleSubmit, setValue } = useForm<SchemaRegister>({
 		resolver: zodResolver(createRegisterSchema),
 	});
 
-	const onSubmit = (data: SchemaRegister) => {
-		console.log(data);
-	};
+	const convertToBase64 = (file: File): Promise< string | ArrayBuffer | null > => {
+		return new Promise((resolver, reject) => {
+			const reader = new FileReader()
 
-	const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+			reader.readAsDataURL(file)
+
+			reader.onload = () => resolver(reader.result)
+			reader.onerror = (error) => reject(error)
+		})
+	}
+
+	const handleImageChange = async(event: React.ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0];
 
 		if (file) {
-			const reader = new FileReader();
 
-			reader.onload = () => {
-				setPreviewImage(reader.result as string);
-			};
+			try {
+				setValue("image", file)
 
-			reader.readAsDataURL(file);
+				const base64 = (await convertToBase64(file)) as string
+
+				setPreviewImage(base64)
+
+			} catch (error) {
+				console.error('Erro ao converter a imagem para Base64:', error);
+			}
+
+
 		}
 	};
+
+
+
+	const onSubmit = async(data: SchemaRegister) => {
+		console.log(data);
+
+		const id = uuidv4()
+
+
+
+		try {
+			//const imageBase64 = data.image ? convertToBase64(data.image) : null
+
+			const {name, supplier, category, costPrice, salePrice, description} = data
+
+			const newProduct = {
+				id,
+				name,
+				supplier,
+				category,
+				costPrice,
+				salePrice,
+				description,
+				image: previewImage
+			}
+
+			const response = await axios.post('http://localhost:5000/products', newProduct)
+
+			console.log("Produto registrado com sucesso: ", response.data);
+			
+		} catch (error) {
+			console.log("Erro ao registra o produto", error);
+			
+		}
+		
+	};
+
+
 
 	return (
 		<>
@@ -79,6 +133,7 @@ export const Register = () => {
 											src={previewImage}
 											alt="Preview"
 											className="max-w-full max-h-full  filter brightness-75 items-center rounded-sm"
+											
 										/>
 									) : (
 										<div className="flex items-center gap-2 ">
@@ -92,7 +147,6 @@ export const Register = () => {
 								type="file"
 								accept="image/*"
 								onChange={handleImageChange}
-								name="input-image"
 								id="input-image"
 								className="hidden"
 							/>

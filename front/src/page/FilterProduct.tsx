@@ -19,8 +19,28 @@ import {
 } from "@/components/ui/table";
 import { IoSearchOutline } from "react-icons/io5";
 import { Sidebar } from "../components/Sidebar";
+import axios from "axios";
+import { useEffect } from "react";
+
+
 
 export const FilterProduct = () => {
+
+	useEffect(() => {
+		const fetchData = async() => {
+		try {
+			const response = await axios.get('http://localhost:5000/products')
+
+			console.log(response.data);
+		} catch (error) {
+			console.error('Erro ao buscar produtos:', error);
+		}
+		}
+
+		fetchData()
+	}, [])
+
+	
 	return (
 		<>
 			<Header />
@@ -59,9 +79,9 @@ export const FilterProduct = () => {
 								</TableRow>
 							</TableHeader>
 							<TableBody>
-								{Array.from({ length: 10 }).map((_, index) => {
+								{Array.from({ length: 10 }).map((_, i) => {
 									return (
-										<TableRow key={index}>
+										<TableRow key={i}>
 											<TableCell>Smart Tv</TableCell>
 											<TableCell>R$ 2100,00</TableCell>
 											<TableCell>R$ 4200,00</TableCell>
