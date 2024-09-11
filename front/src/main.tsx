@@ -4,8 +4,8 @@ import App from "./App.tsx";
 import "./main.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { FilterProduct } from "./page/FilterProduct.tsx";
-import { ProductEntry } from "./page/ProductEntry.tsx";
 import { Register } from "./page/Register.tsx";
+import { StockEntry } from "./page/StockEntry.tsx";
 
 const router = createBrowserRouter([
 	{
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "/entry",
-		element: <ProductEntry />,
+		element: <StockEntry />,
 	},
 	{
 		path: "/products",

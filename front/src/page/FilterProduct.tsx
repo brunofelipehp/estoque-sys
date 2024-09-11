@@ -20,18 +20,29 @@ import {
 import { IoSearchOutline } from "react-icons/io5";
 import { Sidebar } from "../components/Sidebar";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
+interface ProductsProps {
+	id: string;
+  name: string;
+  supplier: string;
+  category: string;
+  costPrice: number;
+  salePrice: number;
+  description: string;
+  image: string | null;
+}
 
 
 export const FilterProduct = () => {
+const [products, setProducts] = useState<ProductsProps[]>([])
 
 	useEffect(() => {
 		const fetchData = async() => {
 		try {
-			const response = await axios.get('http://localhost:5000/products')
+			const response = await axios.get<ProductsProps[]>('http://localhost:5000/products')
 
-			console.log(response.data);
+			setProducts(response.data);
 		} catch (error) {
 			console.error('Erro ao buscar produtos:', error);
 		}
@@ -79,13 +90,13 @@ export const FilterProduct = () => {
 								</TableRow>
 							</TableHeader>
 							<TableBody>
-								{Array.from({ length: 10 }).map((_, i) => {
+								{products.map((products) => {
 									return (
-										<TableRow key={i}>
-											<TableCell>Smart Tv</TableCell>
-											<TableCell>R$ 2100,00</TableCell>
-											<TableCell>R$ 4200,00</TableCell>
-											<TableCell>Entrada</TableCell>
+										<TableRow key={products.id}>
+											<TableCell>{products.name}</TableCell>
+											<TableCell>{products.supplier}</TableCell>
+											<TableCell>{products.salePrice}</TableCell>
+											<TableCell>{products.costPrice}</TableCell>
 										</TableRow>
 									);
 								})}
