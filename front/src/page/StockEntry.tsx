@@ -1,27 +1,24 @@
+import { Header } from "@/components/Header";
+import { Sidebar } from "@/components/Sidebar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
-	Select,
 	SelectContent,
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
+	Select as ShadcnSelect,
 } from "@/components/ui/select";
-import { Header } from "../components/Header";
-import { Sidebar } from "../components/Sidebar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import type { filterStockProps } from "@/service/api";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import Select from "react-select";
 import { z } from "zod";
-import { useState } from "react";
-import { fetchProductFilter } from "@/service/api";
-import type {  filterStockProps } from '@/service/api'
-
-
+("../components/Sidebar");
 
 const stockEntryFormSchema = z.object({
 	name: z.string().min(1, { message: "Digite o nome do produto" }),
-	supplier: z.string().min(1, { message: "Digite  o nome do fornecedor" }),
-	category: z.string().min(1, { message: "Digite  a categoria do produto" }),
 	costPrice: z
 		.string()
 		.min(1, { message: "Digite o Valor" })
@@ -30,94 +27,73 @@ const stockEntryFormSchema = z.object({
 		.string()
 		.min(1, { message: "Digite o Valor" })
 		.transform((value) => Number(value)),
-	description: z.string().min(1, { message: "Digite a descrição" }),
-	image: z.instanceof(File)
+	quantity: z
+		.string()
+		.min(1, { message: "Digite o Valor" })
+		.transform((value) => Number(value)),
+	type: z.enum(["entry", "out"], {
+		errorMap: () => ({
+			message: 'O tipo de movimentação deve ser "entrada" ou "saida".',
+		}),
+	}),
 });
 
-type SchemaStockEntry = z.infer<typeof stockEntryFormSchema>
+type SchemaStockEntry = z.infer<typeof stockEntryFormSchema>;
 
 export const StockEntry = () => {
-	const {control, reset, handleSubmit} = useForm<SchemaStockEntry>()
+	const { control, handleSubmit, setValue, register } =
+		useForm<SchemaStockEntry>();
 
-	const [inputValue, setInputValue] = useState('')
-	const [filteredOptions, setFilteredOptions] = useState<filterStockProps[]>([])
+	//const [value, setValue] = useState("");
 
-	const handleInputChange = async(e: React.ChangeEvent<HTMLInputElement>, onChange: (value: string) => void) => {
-		const value = e.target.value
-		setInputValue(value)
-		onChange(value)
+	const [products, setProducts] = useState<filterStockProps[]>([]);
 
-		if (value.length > 0) {
-			const filtered = await fetchProductFilter(value)
-			setFilteredOptions(filtered)
-
-		} else {
-			setFilteredOptions([])
-		}
-	}
-
-	const handleOptionClick = (option: filterStockProps, onChange: (value: string) => void) => {
-		setInputValue(option.name)
-		onChange(option.name)
-	}
-
-	const onSubmit = async(data: SchemaStockEntry) => {
-		try {
-			const existingProducts = await fetchProductFilter(data.name)
-			if (!existingProducts.some((product) => product.name === data.name)) {
-				console.log('Produto não encontrado');
-				return
+	useEffect(() => {
+		const fetchProducts = async () => {
+			try {
+				const response = await axios.get("http://localhost:5000/products");
+				const data = response.data.map((product: filterStockProps) => ({
+					value: product.id,
+					label: product.name,
+				}));
+				setProducts(data);
+			} catch (error) {
+				console.error("Erro ao buscar produtos:", error);
 			}
+		};
 
-			console.log(data);
-			reset()
-		} catch (error) {
-			console.error('Erro ao verificar o produto:', error);
-		}
-	} 
+		fetchProducts();
+	}, []);
 
-	
+	const onSubmit = (data: SchemaStockEntry) => {
+		console.log(data);
+	};
+
 	return (
 		<>
 			<Header />
 			<div className="flex h-screen  bg-zinc-50">
 				<Sidebar />
 				<div className="flex justify-center mt-24 w-full">
-					<form onSubmit={handleSubmit(onSubmit)} className="w-3/6 flex flex-col gap-4">
+					<form
+						onSubmit={handleSubmit(onSubmit)}
+						className="w-3/6 flex flex-col gap-4"
+					>
 						<h2 className="text-center text-4xl font-bold">Entrada e Saída</h2>
-						<Controller name="name" control={control} render={({field: {onChange} }) => (
-							<Popover>
-							<PopoverTrigger asChild>
-							<div>
-							<label htmlFor="nome" className="block">
-								Nome
-							</label>
-							<Input
-								type="text"
-								className="border border-zinc-300 w-full p-4 rounded outline-indigo-400"
-								placeholder="Nome do produto"
-								onChange={(e) => handleInputChange(e, onChange)}
-							/>
-						</div>
-							</PopoverTrigger>
-							<PopoverContent className="w-full">{filteredOptions.length > 0 ? (
-								filteredOptions.map((option) => (
-									<div key={option.id} onClick={() => handleOptionClick(option, onChange)} onKeyDown={(e) => {
-									if (e.key === 'Enter' || e.key === ' ') {
-										handleOptionClick(option, onChange)
-									}
-									}}>
-										{option.name}
-									</div>
-								))
-							) : (
-								<div>Nenhum Produto encontrado...</div>
-							)}</PopoverContent>
-						</Popover>
-						)}/>
-						
 
-						
+						<Controller
+							name="name"
+							control={control}
+							render={({ field }) => (
+								<Select
+									options={products}
+									placeholder="selecione um produto"
+									onChange={(value) =>
+										setValue("name", value as unknown as string)
+									}
+								/>
+							)}
+						/>
 
 						<div className="grid grid-cols-2 w-full gap-2 items-center">
 							<div className="">
@@ -128,6 +104,7 @@ export const StockEntry = () => {
 									type="number"
 									className="border border-zinc-300 w-full  p-4 rounded outline-indigo-400"
 									placeholder=""
+									{...register("costPrice")}
 								/>
 							</div>
 							<div className="">
@@ -137,6 +114,7 @@ export const StockEntry = () => {
 								<Input
 									type="number"
 									className="border border-zinc-300 w-full p-4 rounded outline-indigo-400"
+									{...register("salePrice")}
 								/>
 							</div>
 						</div>
@@ -144,23 +122,27 @@ export const StockEntry = () => {
 							<label htmlFor="">Quantidade</label>
 							<Input
 								type="number"
-								name="quanty"
 								id="quanty"
 								className="border border-zinc-300 w-full p-4 rounded outline-indigo-400"
+								{...register("quantity")}
 							/>
 						</div>
 						<div>
 							<label htmlFor="">Entrada ou Saída</label>
 
-							<Select>
+							<ShadcnSelect
+								onValueChange={(value: "entry" | "out") =>
+									setValue("type", value)
+								}
+							>
 								<SelectTrigger className="border border-zinc-300 w-full p-4 rounded outline-indigo-400 mb-4">
-									<SelectValue placeholder="Entrada" />
+									<SelectValue placeholder="Selecione o tipo" />
 								</SelectTrigger>
 								<SelectContent>
 									<SelectItem value="entry">Entrada</SelectItem>
 									<SelectItem value="out">Saída</SelectItem>
 								</SelectContent>
-							</Select>
+							</ShadcnSelect>
 						</div>
 						<Button type="submit" className="w-36  p-3 rounded-lg  text-white">
 							Enviar
