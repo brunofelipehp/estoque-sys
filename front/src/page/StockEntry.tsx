@@ -1,3 +1,10 @@
+import { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+
+import type { SchemaStockEntry } from "@/schemas/StockEntrySchema";
+
+import Select from "react-select";
+
 import { Header } from "@/components/Header";
 import { Sidebar } from "@/components/Sidebar";
 import { Button } from "@/components/ui/button";
@@ -9,50 +16,27 @@ import {
 	SelectValue,
 	Select as ShadcnSelect,
 } from "@/components/ui/select";
-import type { filterStockProps } from "@/service/api";
+
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
-import Select from "react-select";
-import { z } from "zod";
+
 ("../components/Sidebar");
 
-const stockEntryFormSchema = z.object({
-	name: z.string().min(1, { message: "Digite o nome do produto" }),
-	costPrice: z
-		.string()
-		.min(1, { message: "Digite o Valor" })
-		.transform((value) => Number(value)),
-	salePrice: z
-		.string()
-		.min(1, { message: "Digite o Valor" })
-		.transform((value) => Number(value)),
-	quantity: z
-		.string()
-		.min(1, { message: "Digite o Valor" })
-		.transform((value) => Number(value)),
-	type: z.enum(["entry", "out"], {
-		errorMap: () => ({
-			message: 'O tipo de movimentação deve ser "entrada" ou "saida".',
-		}),
-	}),
-});
-
-type SchemaStockEntry = z.infer<typeof stockEntryFormSchema>;
+interface OptionsProducts {
+	value: string;
+	label: string;
+}
 
 export const StockEntry = () => {
 	const { control, handleSubmit, setValue, register } =
 		useForm<SchemaStockEntry>();
 
-	//const [value, setValue] = useState("");
-
-	const [products, setProducts] = useState<filterStockProps[]>([]);
+	const [products, setProducts] = useState<OptionsProducts[]>([]);
 
 	useEffect(() => {
 		const fetchProducts = async () => {
 			try {
-				const response = await axios.get("http://localhost:5000/products");
-				const data = response.data.map((product: filterStockProps) => ({
+				const response = await axios.get("http://localhost:3001/products");
+				const data = response.data.map((product: SchemaStockEntry) => ({
 					value: product.id,
 					label: product.name,
 				}));
@@ -65,8 +49,16 @@ export const StockEntry = () => {
 		fetchProducts();
 	}, []);
 
-	const onSubmit = (data: SchemaStockEntry) => {
-		console.log(data);
+	const onSubmit = async (data: SchemaStockEntry) => {
+		const id = data.name.value;
+
+		try {
+			const response = await axios.get(`http://localhost:3001/products/${id}`);
+
+			console.log(response.data);
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	return (
@@ -86,11 +78,9 @@ export const StockEntry = () => {
 							control={control}
 							render={({ field }) => (
 								<Select
+									{...field}
 									options={products}
 									placeholder="selecione um produto"
-									onChange={(value) =>
-										setValue("name", value as unknown as string)
-									}
 								/>
 							)}
 						/>
