@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 import type { SchemaStockEntry } from "@/schemas/StockEntrySchema";
@@ -17,48 +16,24 @@ import {
 	Select as ShadcnSelect,
 } from "@/components/ui/select";
 
-import axios from "axios";
-
-("../components/Sidebar");
-
-interface OptionsProducts {
-	value: string;
-	label: string;
-}
+import {
+	useFetchStockEntriesById,
+	useStockEntries,
+} from "@/hooks/useStockEntries";
 
 export const StockEntry = () => {
 	const { control, handleSubmit, setValue, register } =
 		useForm<SchemaStockEntry>();
 
-	const [products, setProducts] = useState<OptionsProducts[]>([]);
-
-	useEffect(() => {
-		const fetchProducts = async () => {
-			try {
-				const response = await axios.get("http://localhost:3001/products");
-				const data = response.data.map((product: SchemaStockEntry) => ({
-					value: product.id,
-					label: product.name,
-				}));
-				setProducts(data);
-			} catch (error) {
-				console.error("Erro ao buscar produtos:", error);
-			}
-		};
-
-		fetchProducts();
-	}, []);
+	const { data } = useStockEntries();
+	const { mutate: StockEntryById, data: productSelected } =
+		useFetchStockEntriesById();
 
 	const onSubmit = async (data: SchemaStockEntry) => {
 		const id = data.name.value;
 
-		try {
-			const response = await axios.get(`http://localhost:3001/products/${id}`);
-
-			console.log(response.data);
-		} catch (error) {
-			console.error(error);
-		}
+		StockEntryById(id);
+		// const {category, supplier} = productSelected
 	};
 
 	return (
@@ -79,7 +54,7 @@ export const StockEntry = () => {
 							render={({ field }) => (
 								<Select
 									{...field}
-									options={products}
+									options={data}
 									placeholder="selecione um produto"
 								/>
 							)}

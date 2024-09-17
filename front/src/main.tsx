@@ -7,6 +7,10 @@ import { FilterProduct } from "./page/FilterProduct.tsx";
 import { Register } from "./page/Register.tsx";
 import { StockEntry } from "./page/StockEntry.tsx";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
+
 const router = createBrowserRouter([
 	{
 		path: "/",
@@ -28,7 +32,9 @@ const router = createBrowserRouter([
 
 // biome-ignore lint/style/noNonNullAssertion: <explanation>
 ReactDOM.createRoot(document.getElementById("root")!).render(
-	<React.StrictMode>
-		<RouterProvider router={router} />
-	</React.StrictMode>,
+	<QueryClientProvider client={queryClient}>
+		<React.StrictMode>
+			<RouterProvider router={router} />
+		</React.StrictMode>
+	</QueryClientProvider>,
 );
