@@ -1,61 +1,56 @@
-import type { SchemaStockEntry } from "@/schemas/StockEntrySchema";
+import type { stockEntriesProps } from "@/schemas/StockEntrySchema";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 
-const fetchProducts = async () => {
-	try {
-		const response = await axios.get("http://localhost:3001/products");
-		const data = response.data.map((product: SchemaStockEntry) => ({
-			value: product.id,
-			label: product.name,
-		}));
-		return data;
-	} catch (error) {
-		console.error("Erro ao buscar produtos:", error);
-	}
+const fetchAllStockEntries = async () => {
+	await axios.get("http://localhost:3001/products");
 };
 
-// const producStockEntry = async (data: string) => {
-// 	try {
-// 		const response = await axios.post(`http://localhost:3001/entries/`, data);
-// 		const data = response.data;
-// 		return data;
-// 	} catch (error) {
-// 		console.error("Erro ao buscar produtos:", error);
-// 	}
-// };
+const fetchStockEntry = async (data: stockEntriesProps) => {
+	const {
+		id,
+		productId: product_id,
+		productName: product_name,
+		category,
+		supplier,
+		costPrice: cost_price,
+		salePrice: sale_price,
+		quantity,
+		type,
+	} = data;
 
-const fetchProductsById = async (id: string) => {
-	try {
-		const response = await axios.get(`http://localhost:3001/products/${id}`);
-		const data = response.data;
-		return data;
-	} catch (error) {
-		console.error("Erro ao buscar produtos:", error);
-	}
+	await axios.post("http://localhost:3001/entries", {
+		id,
+		product_id,
+		product_name,
+		category,
+		supplier,
+		cost_price,
+		sale_price,
+		quantity,
+		type,
+	});
+
+	return data;
 };
 
-export const useStockEntries = () => {
-	return useQuery({ queryKey: ["stockEntries"], queryFn: fetchProducts });
+export const useFetchStockEntries = () => {
+	return useQuery({
+		queryKey: ["stockEntries"],
+		queryFn: fetchAllStockEntries,
+	});
 };
 
-export const useFetchStockEntriesById = () => {
+export const useFetchStockEntry = () => {
 	const queryClient = useQueryClient();
+
 	return useMutation({
-		mutationFn: (productId: string) => fetchProductsById(productId),
+		mutationFn: (data: stockEntriesProps) => fetchStockEntry(data),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["stockEntries"] });
 		},
 		onError: (error) => {
-			console.error("Erro ao buscar o produto ", error);
+			console.error("Error registering the product in stock ", error);
 		},
 	});
 };
-
-// export const useFetchStockEntries = () = {
-// 	const queryClient = QueryClient()
-
-// 	return useMutation({
-// 		mutationFn:
-// 	})
-// }

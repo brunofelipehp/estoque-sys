@@ -26,3 +26,15 @@ export const stockEntryFormSchema = z.object({
 });
 
 export type SchemaStockEntry = z.infer<typeof stockEntryFormSchema>;
+
+export interface stockEntriesProps {
+	id: string;
+	productId: string;
+	productName: string;
+	category: string;
+	supplier: string;
+	costPrice: number;
+	salePrice: number;
+	quantity: number;
+	type: string;
+}

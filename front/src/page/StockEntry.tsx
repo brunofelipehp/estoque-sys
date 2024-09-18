@@ -1,6 +1,9 @@
 import { Controller, useForm } from "react-hook-form";
 
-import type { SchemaStockEntry } from "@/schemas/StockEntrySchema";
+import type {
+	SchemaStockEntry,
+	stockEntriesProps,
+} from "@/schemas/StockEntrySchema";
 
 import Select from "react-select";
 
@@ -15,25 +18,44 @@ import {
 	SelectValue,
 	Select as ShadcnSelect,
 } from "@/components/ui/select";
+import { useFetchStockEntry } from "@/hooks/useStockEntries";
 
-import {
-	useFetchStockEntriesById,
-	useStockEntries,
-} from "@/hooks/useStockEntries";
+import { useFetchProductById, useFetchProducts } from "@/hooks/useProducts";
+import { v4 as uuidv4 } from "uuid";
 
 export const StockEntry = () => {
 	const { control, handleSubmit, setValue, register } =
 		useForm<SchemaStockEntry>();
 
-	const { data } = useStockEntries();
-	const { mutate: StockEntryById, data: productSelected } =
-		useFetchStockEntriesById();
+	const { data } = useFetchProducts();
+	const { mutateAsync: StockEntryById } = useFetchProductById();
+
+	const { mutateAsync: postStockEntry } = useFetchStockEntry();
 
 	const onSubmit = async (data: SchemaStockEntry) => {
-		const id = data.name.value;
+		const productId = data.name.value;
 
-		StockEntryById(id);
-		// const {category, supplier} = productSelected
+		const stockEntryId = uuidv4();
+
+		const productSelected = await StockEntryById(productId);
+
+		if (productSelected) {
+			const { category, supplier } = productSelected;
+
+			const productEntry: stockEntriesProps = {
+				id: stockEntryId,
+				productId,
+				productName: data.name.label,
+				category,
+				supplier,
+				costPrice: data.costPrice,
+				salePrice: data.salePrice,
+				quantity: data.quantity,
+				type: data.type,
+			};
+
+			postStockEntry(productEntry);
+		}
 	};
 
 	return (
