@@ -1,3 +1,4 @@
+import type { ProductSchema } from "@/schemas/ProductSchema";
 import type { SchemaStockEntry } from "@/schemas/StockEntrySchema";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
@@ -15,6 +16,10 @@ const fetchAllProducts = async () => {
 	}
 };
 
+const fetchProduct = async (newProduct: ProductSchema) => {
+	await axios.post("http://localhost:3001/products", newProduct);
+};
+
 const fetchProductsById = async (id: string) => {
 	try {
 		const response = await axios.get(`http://localhost:3001/products/${id}`);
@@ -27,6 +32,20 @@ const fetchProductsById = async (id: string) => {
 
 export const useFetchProducts = () => {
 	return useQuery({ queryKey: ["products"], queryFn: fetchAllProducts });
+};
+
+export const useFetchPostProduct = () => {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: (productData: ProductSchema) => fetchProduct(productData),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["products"] });
+		},
+		onError: (error) => {
+			console.error("Error ao registra o produto no banco ", error);
+		},
+	});
 };
 
 export const useFetchProductById = () => {
