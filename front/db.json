@@ -7,6 +7,14 @@
       "category": "Calçados",
       "description": "Chinelo Havainas branco",
       "image": "/uploads/8736980b-0eb3-4d8f-ae3c-2d7493e2aa13"
+    },
+    {
+      "id": "986262c5-34c4-46f6-ab2b-c4530fa9cccc",
+      "name": "Smart Tv LG",
+      "supplier": "LG",
+      "category": "Eletroeletrônico",
+      "description": "Smart Tv LG 50 pol preto",
+      "image": "/uploads/blob:http://localhost:5173/8518cbef-8036-4dd6-a9b7-50b6613fdcd0"
     }
   ],
   "entries": [

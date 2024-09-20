@@ -2,62 +2,30 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-
 import { useFetchPostProduct } from "@/hooks/useProducts";
-import {
-	type ProductSchema,
-	createProductSchema,
-} from "@/schemas/ProductSchema";
-import { useState } from "react";
+
+import { useImagePreview } from "@/hooks/useImagePreview";
+import type { ProductSchema } from "@/schemas/ProductSchema";
+import { type SubmitHandler, useFormContext } from "react-hook-form";
 import { IoMdCloudUpload } from "react-icons/io";
 import { v4 as uuidv4 } from "uuid";
 
 export const FormProduct = () => {
-	const [previewImage, setPreviewImage] = useState<string | null>(null);
+	//const [previewImage, setPreviewImage] = useState<string | null>(null);
 
-	const { register, handleSubmit, setValue } = useForm<ProductSchema>({
-		resolver: zodResolver(createProductSchema),
-	});
+	// const { register, handleSubmit, setValue } = useForm<ProductSchema>({
+	// 	resolver: zodResolver(createProductSchema),
+	// });
+	const { register, handleSubmit } = useFormContext<ProductSchema>();
+
+	const { handleImageChange, previewImage } = useImagePreview();
 
 	const { mutateAsync: fetchProduct } = useFetchPostProduct();
-
-	const convertToBase64 = (
-		file: File,
-	): Promise<string | ArrayBuffer | null> => {
-		return new Promise((resolver, reject) => {
-			const reader = new FileReader();
-
-			reader.readAsDataURL(file);
-
-			reader.onload = () => resolver(reader.result);
-			reader.onerror = (error) => reject(error);
-		});
-	};
-
-	const handleImageChange = async (
-		event: React.ChangeEvent<HTMLInputElement>,
-	) => {
-		const file = event.target.files?.[0];
-
-		if (file) {
-			try {
-				const base64 = (await convertToBase64(file)) as string;
-
-				setValue("image", base64);
-
-				setPreviewImage(base64);
-			} catch (error) {
-				console.error("Erro ao converter a imagem para Base64:", error);
-			}
-		}
-	};
 
 	const onSubmit = async (data: ProductSchema) => {
 		const id = uuidv4();
 
-		const imageUrl = `/uploads/${id}`;
+		const imageUrl = `/uploads/${data.image}`;
 
 		const { name, supplier, category, description } = data;
 
