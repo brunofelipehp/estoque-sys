@@ -15,19 +15,38 @@
       "category": "Eletroeletrônico",
       "description": "Smart Tv LG 50 pol preto",
       "image": "/uploads/blob:http://localhost:5173/8518cbef-8036-4dd6-a9b7-50b6613fdcd0"
+    },
+    {
+      "id": "2efb47ce-3a39-42b9-bbe6-e5cf5f0db462",
+      "name": "Xbox serie X",
+      "supplier": "Microsoft",
+      "category": "Eletroeletrônico",
+      "description": "Vídeo Xbox serie X SSD 1 TB Preto 2 controles",
+      "image": "/uploads/blob:http://localhost:5173/bd8e5ad7-edf2-4966-be0d-df2ed9fa9f5d"
     }
   ],
   "entries": [
     {
       "id": "64680324-5982-486e-a6e3-d30230f451e4",
-      "product_id": "8736980b-0eb3-4d8f-ae3c-2d7493e2aa13",
-      "product_name": "Chinelo Havainas",
+      "productId": "8736980b-0eb3-4d8f-ae3c-2d7493e2aa13",
+      "productName": "Chinelo Havainas",
       "category": "Calçados",
       "supplier": "eiouei",
-      "cost_price": "14",
-      "sale_price": "25",
+      "costPrice": "14",
+      "salePrice": "25",
       "quantity": "15",
-      "type": "entry"
+      "type": "Entrada"
+    },
+    {
+      "id": "51f508e1-7417-4e42-8a96-00a9433133fe",
+      "productId": "2efb47ce-3a39-42b9-bbe6-e5cf5f0db462",
+      "productName": "Xbox serie X",
+      "category": "Eletroeletrônico",
+      "supplier": "Microsoft",
+      "costPrice": "3500",
+      "salePrice": "4700",
+      "quantity": "10",
+      "type": "Entrada"
     }
   ]
 }

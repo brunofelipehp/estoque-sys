@@ -6,7 +6,7 @@ import { useFetchPostProduct } from "@/hooks/useProducts";
 
 import { useImagePreview } from "@/hooks/useImagePreview";
 import type { ProductSchema } from "@/schemas/ProductSchema";
-import { type SubmitHandler, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { IoMdCloudUpload } from "react-icons/io";
 import { v4 as uuidv4 } from "uuid";
 
@@ -16,7 +16,7 @@ export const FormProduct = () => {
 	// const { register, handleSubmit, setValue } = useForm<ProductSchema>({
 	// 	resolver: zodResolver(createProductSchema),
 	// });
-	const { register, handleSubmit } = useFormContext<ProductSchema>();
+	const { register, handleSubmit, reset } = useFormContext<ProductSchema>();
 
 	const { handleImageChange, previewImage } = useImagePreview();
 
@@ -39,6 +39,8 @@ export const FormProduct = () => {
 		};
 
 		await fetchProduct(newProduct);
+
+		reset()
 	};
 
 	return (
@@ -71,13 +73,13 @@ export const FormProduct = () => {
 					</label>
 					<input
 						type="file"
-						accept="image/*"
-						onChange={handleImageChange}
+						accept="image/*"	
 						id="input-image"
 						className="hidden"
+						{...register("image")}
+						onChange={handleImageChange}
 					/>
 				</div>
-
 				<div>
 					<label className="block">Nome</label>
 					<Input

@@ -21,28 +21,35 @@ import { IoSearchOutline } from "react-icons/io5";
 import { Sidebar } from "../components/Sidebar";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { fetchProductFilter } from "@/service/api";
+// import { stockEntriesProps } from "@/schemas/StockEntrySchema";
 
 interface ProductsProps {
-	id: string;
-  name: string;
+	productId: string;
+  productName: string;
   supplier: string;
   category: string;
   costPrice: number;
   salePrice: number;
-  description: string;
-  image: string | null;
+  quantity: number;
+	type: string;
 }
 
 
 export const FilterProduct = () => {
 const [products, setProducts] = useState<ProductsProps[]>([])
+//const [nameProduct, setNameProduct] = useState<string>("")
 
 	useEffect(() => {
 		const fetchData = async() => {
 		try {
-			const response = await axios.get<ProductsProps[]>('http://localhost:5000/products')
+			const response = await axios.get('http://localhost:3001/entries')
 
-			setProducts(response.data);
+			const data = response.data
+
+			setProducts(data);
+
+			
 		} catch (error) {
 			console.error('Erro ao buscar produtos:', error);
 		}
@@ -51,6 +58,26 @@ const [products, setProducts] = useState<ProductsProps[]>([])
 		fetchData()
 	}, [])
 
+	const searchProduct = async(e: React.FormEvent) => {
+		e.preventDefault()
+
+		const form = e.target as HTMLFormElement
+		const formData = new FormData(form)
+
+		const nameValue = formData.get('name') as string
+		try {
+			const response = await fetchProductFilter(nameValue)
+
+		console.log(response);
+		
+
+			
+		} catch (error) {
+			console.error('Erro ao buscar produtos:', error);
+		}
+		}
+
+	
 	
 	return (
 		<>
@@ -59,8 +86,8 @@ const [products, setProducts] = useState<ProductsProps[]>([])
 				<Sidebar />
 				<div className="p-6 mt-24 w-3/6 mx-auto space-y-7">
 					<div>
-						<form className="flex gap-3 items-center w-2/3">
-							<Input name="nome" placeholder="Nome do Produto" />
+						<form className="flex gap-3 items-center w-2/3" onSubmit={searchProduct}>
+							<Input name="name" placeholder="Nome do Produto" />
 							<Select>
 								<SelectTrigger className="border border-zinc-300  rounded outline-indigo-400 ">
 									<SelectValue placeholder="Entrada" />
@@ -84,22 +111,28 @@ const [products, setProducts] = useState<ProductsProps[]>([])
 							<TableHeader>
 								<TableRow>
 									<TableHead>Nome</TableHead>
-									<TableHead>Custo Compra</TableHead>
+									<TableHead>Fornecdor</TableHead>
 									<TableHead>Custo Venda</TableHead>
-									<TableHead>Ação</TableHead>
+									<TableHead>Custo Comprar</TableHead>
+									<TableHead>Quantidade</TableHead>
+									<TableHead>Tipo</TableHead>
 								</TableRow>
 							</TableHeader>
 							<TableBody>
-								{products.map((products) => {
+								{products ? products.map((products) => {
 									return (
-										<TableRow key={products.id}>
-											<TableCell>{products.name}</TableCell>
+										<TableRow key={products.productId}>
+											<TableCell>{products.productName}</TableCell>
 											<TableCell>{products.supplier}</TableCell>
-											<TableCell>{products.salePrice}</TableCell>
 											<TableCell>{products.costPrice}</TableCell>
+											<TableCell>{products.salePrice}</TableCell>
+											<TableCell>{products.quantity}</TableCell>
+											<TableCell>{products.type}</TableCell>
 										</TableRow>
 									);
-								})}
+								}) : (
+									<p>Não há registro de produto</p>
+								)}
 							</TableBody>
 						</Table>
 					</div>

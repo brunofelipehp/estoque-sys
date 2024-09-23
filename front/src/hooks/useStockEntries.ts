@@ -7,29 +7,9 @@ const fetchAllStockEntries = async () => {
 };
 
 const fetchStockEntry = async (data: stockEntriesProps) => {
-	const {
-		id,
-		productId: product_id,
-		productName: product_name,
-		category,
-		supplier,
-		costPrice: cost_price,
-		salePrice: sale_price,
-		quantity,
-		type,
-	} = data;
 
-	await axios.post("http://localhost:3001/entries", {
-		id,
-		product_id,
-		product_name,
-		category,
-		supplier,
-		cost_price,
-		sale_price,
-		quantity,
-		type,
-	});
+
+	await axios.post("http://localhost:3001/entries", data);
 
 	return data;
 };

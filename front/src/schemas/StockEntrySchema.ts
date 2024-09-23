@@ -18,7 +18,7 @@ export const stockEntryFormSchema = z.object({
 		.string()
 		.min(1, { message: "Digite o Valor" })
 		.transform((value) => Number(value)),
-	type: z.enum(["entry", "out"], {
+	type: z.enum(["Entrada", "Saída"], {
 		errorMap: () => ({
 			message: 'O tipo de movimentação deve ser "entrada" ou "saida".',
 		}),

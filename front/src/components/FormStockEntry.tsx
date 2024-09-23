@@ -23,7 +23,7 @@ import type {
 import { v4 as uuidv4 } from "uuid";
 
 export const FormStockEntry = () => {
-	const { control, handleSubmit, setValue, register } =
+	const { control, handleSubmit, setValue, register, reset } =
 		useForm<SchemaStockEntry>();
 
 	const { data } = useFetchProducts();
@@ -53,7 +53,9 @@ export const FormStockEntry = () => {
 				type: data.type,
 			};
 
-			postStockEntry(productEntry);
+		await	postStockEntry(productEntry);
+
+		reset()
 		}
 	};
 
@@ -66,15 +68,15 @@ export const FormStockEntry = () => {
 				<h2 className="text-center text-4xl font-bold">Entrada e Saída</h2>
 
 				<Controller
-					name="name"
 					control={control}
 					render={({ field }) => (
 						<Select
 							{...field}
 							options={data}
 							placeholder="selecione um produto"
-						/>
-					)}
+							/>
+						)}
+						{...register("name")}
 				/>
 
 				<div className="grid grid-cols-2 w-full gap-2 items-center">
@@ -113,14 +115,15 @@ export const FormStockEntry = () => {
 					<label htmlFor="">Entrada ou Saída</label>
 
 					<ShadcnSelect
-						onValueChange={(value: "entry" | "out") => setValue("type", value)}
+						onValueChange={(value: "Entrada" | "Saída") => setValue("type", value)}
+						{...register("type")}
 					>
 						<SelectTrigger className="border border-zinc-300 w-full p-4 rounded outline-indigo-400 mb-4">
 							<SelectValue placeholder="Selecione o tipo" />
 						</SelectTrigger>
 						<SelectContent>
-							<SelectItem value="entry">Entrada</SelectItem>
-							<SelectItem value="out">Saída</SelectItem>
+							<SelectItem value="Entrada">Entrada</SelectItem>
+							<SelectItem value="Saída">Saída</SelectItem>
 						</SelectContent>
 					</ShadcnSelect>
 				</div>
