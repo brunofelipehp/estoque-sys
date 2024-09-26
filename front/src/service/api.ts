@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from 'axios';
 
-const API_URL = "http://localhost:3001";
+const API_URL = 'http://localhost:3001';
 
 export interface filterStockProps {
   id: string;
@@ -8,17 +8,17 @@ export interface filterStockProps {
 }
 
 export const fetchProductFilter = async (
-  query: string,
+  query: string
 ): Promise<filterStockProps[]> => {
   try {
     const response = await axios.get<filterStockProps[]>(
       `${API_URL}/products`,
-      { params: { name_like: query } },
+      { params: { name_like: query } }
     );
 
     return response.data;
   } catch (error) {
-    console.error("Error ao buscar o produto", error);
+    console.error('Error ao buscar o produto', error);
     return [];
   }
 };

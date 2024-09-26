@@ -1,14 +1,14 @@
-import { Button } from "@/components/ui/button";
-import { Header } from "../components/Header";
+import { Button } from '@/components/ui/button';
+import { Header } from '../components/Header';
 
-import { Input } from "@/components/ui/input";
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 import {
   Table,
   TableBody,
@@ -16,76 +16,65 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { fetchProductFilter } from "@/service/api";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { IoSearchOutline } from "react-icons/io5";
-import { Sidebar } from "../components/Sidebar";
-// import { stockEntriesProps } from "@/schemas/StockEntrySchema";
+} from '@/components/ui/table';
+import { fetchProductFilter } from '@/service/api';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { IoSearchOutline } from 'react-icons/io5';
+import { Sidebar } from '../components/Sidebar';
+import { useFilterProductTable } from '@/hooks/useFilterProductTable';
+import { stockEntriesProps } from '@/schemas/StockEntrySchema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { useForm } from 'react-hook-form';
 
-interface ProductsProps {
-  productId: string;
-  productName: string;
-  supplier: string;
-  category: string;
-  costPrice: number;
-  salePrice: number;
-  quantity: number;
-  type: string;
-}
+export const filterProductFormSchema = z.object({
+  name: z.string(),
+  type: z.enum(['Entrada', 'Saída'], {
+    errorMap: () => ({
+      message: 'O tipo de movimentação deve ser "entrada" ou "saida".',
+    }),
+  }),
+});
+
+type FilterProducts = z.infer<typeof filterProductFormSchema>;
+
 
 export const FilterProduct = () => {
-  const [products, setProducts] = useState<ProductsProps[]>([]);
-  const [nameProduct, setNameProduct] = useState<string>("");
+  const [products, setProducts] = useState<stockEntriesProps[]>([]);
+  const {mutateAsync: filterProductTableData} = useFilterProductTable()
+
+const {register, handleSubmit, setValue} = useForm<FilterProducts>({
+  resolver: zodResolver(filterProductFormSchema)
+})
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/entries");
+        const response = await axios.get('http://localhost:3001/entries');
 
         const data = response.data;
 
         setProducts(data);
       } catch (error) {
-        console.error("Erro ao buscar produtos:", error);
+        console.error('Erro ao buscar produtos:', error);
       }
     };
 
     fetchData();
   }, []);
 
-  const searchProduct = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const searchProduct = async (data: FilterProducts) => {
 
-    const form = e.target as HTMLFormElement;
-    const formData = new FormData(form);
+    const{name} =  data
 
-    // Obtém o valor do campo 'name' e garante que seja uma string
-    const nameValue = (formData.get("name") as string)?.trim();
-
-    if (!nameValue) {
+    if (!name) {
       console.log('Campo "name" está vazio.');
       return; // Não faz a requisição se o campo estiver vazio
     }
-    try {
-      const response = await axios.get("http://localhost:3001/entries", {
-        params: nameValue
-          ? {
-              name_like: nameValue,
-            }
-          : {},
-      });
 
-      const filterProd = response.data.filter(
-        (product: { productName: string }) =>
-          product.productName.toLowerCase().includes(nameValue.toLowerCase()),
-      );
-      console.log(filterProd);
-      setProducts(filterProd);
-    } catch (error) {
-      console.error("Erro ao buscar produtos:", error);
-    }
+    const filterProd = await filterProductTableData(name)
+      setProducts(filterProd as stockEntriesProps[]);
   };
 
   return (
@@ -95,18 +84,22 @@ export const FilterProduct = () => {
         <Sidebar />
         <div className="p-6 mt-24 w-3/6 mx-auto space-y-7">
           <div>
+
             <form
               className="flex gap-3 items-center w-2/3"
-              onSubmit={searchProduct}
+              onSubmit={handleSubmit(searchProduct)}
             >
-              <Input name="name" placeholder="Nome do Produto" />
-              <Select>
+              <Input  placeholder="Nome do Produto" {...register("name")}/>
+
+              <Select
+              onValueChange={(value: 'Entrada' | 'Saída') => setValue('type', value)}
+              >
                 <SelectTrigger className="border border-zinc-300  rounded outline-indigo-400 ">
-                  <SelectValue placeholder="Entrada" />
+                  <SelectValue placeholder="Selecione o tipo" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="entry">Entrada</SelectItem>
-                  <SelectItem value="out">Saída</SelectItem>
+                  <SelectItem value="Entrada">Entrada</SelectItem>
+                  <SelectItem value="Saída">Saída</SelectItem>
                 </SelectContent>
               </Select>
               <Button
@@ -117,6 +110,7 @@ export const FilterProduct = () => {
                 filtrar produtos
               </Button>
             </form>
+
           </div>
           <div className="p-2 border rounded-lg">
             <Table>

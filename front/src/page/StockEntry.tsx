@@ -1,6 +1,6 @@
-import { FormStockEntry } from "@/components/FormStockEntry";
-import { Header } from "@/components/Header";
-import { Sidebar } from "@/components/Sidebar";
+import { FormStockEntry } from '@/components/FormStockEntry';
+import { Header } from '@/components/Header';
+import { Sidebar } from '@/components/Sidebar';
 
 export function StockEntry() {
   return (

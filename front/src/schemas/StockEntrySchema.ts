@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 export const stockEntryFormSchema = z.object({
   id: z.string().uuid(),
@@ -8,17 +8,17 @@ export const stockEntryFormSchema = z.object({
   }),
   costPrice: z
     .string()
-    .min(1, { message: "Digite o Valor" })
+    .min(1, { message: 'Digite o Valor' })
     .transform((value) => Number(value)),
   salePrice: z
     .string()
-    .min(1, { message: "Digite o Valor" })
+    .min(1, { message: 'Digite o Valor' })
     .transform((value) => Number(value)),
   quantity: z
     .string()
-    .min(1, { message: "Digite o Valor" })
+    .min(1, { message: 'Digite o Valor' })
     .transform((value) => Number(value)),
-  type: z.enum(["Entrada", "Saída"], {
+  type: z.enum(['Entrada', 'Saída'], {
     errorMap: () => ({
       message: 'O tipo de movimentação deve ser "entrada" ou "saida".',
     }),

@@ -1,26 +1,26 @@
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm } from 'react-hook-form';
 
-import { useFetchProductById, useFetchProducts } from "@/hooks/useProducts";
-import { useFetchStockEntry } from "@/hooks/useStockEntries";
+import { useFetchProductById, useFetchProducts } from '@/hooks/useProducts';
+import { useFetchStockEntry } from '@/hooks/useStockEntries';
 
-import Select from "react-select";
+import Select from 'react-select';
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
   Select as ShadcnSelect,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 
 import type {
   SchemaStockEntry,
   stockEntriesProps,
-} from "@/schemas/StockEntrySchema";
+} from '@/schemas/StockEntrySchema';
 
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 
 export const FormStockEntry = () => {
   const { control, handleSubmit, setValue, register, reset } =
@@ -76,7 +76,7 @@ export const FormStockEntry = () => {
               placeholder="selecione um produto"
             />
           )}
-          {...register("name")}
+          {...register('name')}
         />
 
         <div className="grid grid-cols-2 w-full gap-2 items-center">
@@ -88,7 +88,7 @@ export const FormStockEntry = () => {
               type="number"
               className="border border-zinc-300 w-full  p-4 rounded outline-indigo-400"
               placeholder=""
-              {...register("costPrice")}
+              {...register('costPrice')}
             />
           </div>
           <div className="">
@@ -98,7 +98,7 @@ export const FormStockEntry = () => {
             <Input
               type="number"
               className="border border-zinc-300 w-full p-4 rounded outline-indigo-400"
-              {...register("salePrice")}
+              {...register('salePrice')}
             />
           </div>
         </div>
@@ -108,17 +108,17 @@ export const FormStockEntry = () => {
             type="number"
             id="quanty"
             className="border border-zinc-300 w-full p-4 rounded outline-indigo-400"
-            {...register("quantity")}
+            {...register('quantity')}
           />
         </div>
         <div>
           <label htmlFor="">Entrada ou Saída</label>
 
           <ShadcnSelect
-            onValueChange={(value: "Entrada" | "Saída") =>
-              setValue("type", value)
+            onValueChange={(value: 'Entrada' | 'Saída') =>
+              setValue('type', value)
             }
-            {...register("type")}
+            {...register('type')}
           >
             <SelectTrigger className="border border-zinc-300 w-full p-4 rounded outline-indigo-400 mb-4">
               <SelectValue placeholder="Selecione o tipo" />

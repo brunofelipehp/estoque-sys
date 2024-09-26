@@ -1,6 +1,6 @@
-import { FaMoneyBillTransfer, FaMoneyBillTrendUp } from "react-icons/fa6";
-import { MdOutlineWallet } from "react-icons/md";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { FaMoneyBillTransfer, FaMoneyBillTrendUp } from 'react-icons/fa6';
+import { MdOutlineWallet } from 'react-icons/md';
+import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 
 export function Dashboard() {
   return (

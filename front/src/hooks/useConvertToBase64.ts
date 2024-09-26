@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 export const useBase64Convert = () => {
   const [base64, setBase64] = useState<string | null>(null);
 
   const convertToBase64 = (
-    file: File,
+    file: File
   ): Promise<string | ArrayBuffer | null> => {
     return new Promise((resolver, reject) => {
       const reader = new FileReader();

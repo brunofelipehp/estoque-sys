@@ -1,5 +1,5 @@
-import { GiHamburgerMenu } from "react-icons/gi";
-import useMenuStore from "../store/toggleStore";
+import { GiHamburgerMenu } from 'react-icons/gi';
+import useMenuStore from '../store/toggleStore';
 
 export function Header() {
   const toggleMenu = useMenuStore((state) => state.toggleMenu);

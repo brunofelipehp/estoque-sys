@@ -1,14 +1,14 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 
-import { useFetchPostProduct } from "@/hooks/useProducts";
+import { useFetchPostProduct } from '@/hooks/useProducts';
 
-import { useImagePreview } from "@/hooks/useImagePreview";
-import type { ProductSchema } from "@/schemas/ProductSchema";
-import { useFormContext } from "react-hook-form";
-import { IoMdCloudUpload } from "react-icons/io";
-import { v4 as uuidv4 } from "uuid";
+import { useImagePreview } from '@/hooks/useImagePreview';
+import type { ProductSchema } from '@/schemas/ProductSchema';
+import { useFormContext } from 'react-hook-form';
+import { IoMdCloudUpload } from 'react-icons/io';
+import { v4 as uuidv4 } from 'uuid';
 
 export const FormProduct = () => {
   //const [previewImage, setPreviewImage] = useState<string | null>(null);
@@ -76,7 +76,7 @@ export const FormProduct = () => {
             accept="image/*"
             id="input-image"
             className="hidden"
-            {...register("image")}
+            {...register('image')}
             onChange={handleImageChange}
           />
         </div>
@@ -86,7 +86,7 @@ export const FormProduct = () => {
             type="text"
             className="border border-zinc-300 w-full p-4 rounded outline-indigo-400"
             placeholder="Nome do produto"
-            {...register("name")}
+            {...register('name')}
           />
         </div>
         <div>
@@ -95,7 +95,7 @@ export const FormProduct = () => {
             type="text"
             className="border border-zinc-300 w-3/4 p-4 rounded outline-indigo-400"
             placeholder="Fornecedor"
-            {...register("supplier")}
+            {...register('supplier')}
           />
         </div>
         <div>
@@ -104,7 +104,7 @@ export const FormProduct = () => {
             type="text"
             className="border border-zinc-300 w-2/3 p-4 rounded outline-indigo-400"
             placeholder="Categoria"
-            {...register("category")}
+            {...register('category')}
           />
         </div>
 
@@ -114,7 +114,7 @@ export const FormProduct = () => {
             id="description"
             placeholder="Descrição"
             className="border border-zinc-300 w-full  p-4 rounded outline-indigo-400"
-            {...register("description")}
+            {...register('description')}
           />
         </div>
 

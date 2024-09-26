@@ -1,7 +1,7 @@
-import { Header } from "./components/Header";
-import { Sidebar } from "./components/Sidebar";
-import { Main } from "./components/main";
-import "./main.css";
+import { Header } from './components/Header';
+import { Sidebar } from './components/Sidebar';
+import { Main } from './components/main';
+import './main.css';
 
 function App() {
   return (

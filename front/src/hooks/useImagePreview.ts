@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useFormContext } from "react-hook-form";
+import { useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 export const useImagePreview = () => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
@@ -7,14 +7,14 @@ export const useImagePreview = () => {
   const { setValue } = useFormContext();
 
   const handleImageChange = async (
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];
 
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setPreviewImage(imageUrl);
-      setValue("image", imageUrl);
+      setValue('image', imageUrl);
     }
   };
 
