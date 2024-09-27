@@ -29,16 +29,18 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 
 export const filterProductFormSchema = z.object({
-  name: z.string(),
+  name: z.string().optional(),
   type: z.enum(['Entrada', 'Saída'], {
     errorMap: () => ({
       message: 'O tipo de movimentação deve ser "entrada" ou "saida".',
     }),
-  }),
-});
+  }).optional(),
+}).refine((data) => data.name || data.type, {
+  message: 'Pelo menos um campo (nome ou tipo) deve ser preenchido.',
+  path: ['name', 'type']
+})
 
 type FilterProducts = z.infer<typeof filterProductFormSchema>;
-
 
 export const FilterProduct = () => {
   const [products, setProducts] = useState<stockEntriesProps[]>([]);
@@ -66,16 +68,21 @@ const {register, handleSubmit, setValue} = useForm<FilterProducts>({
 
   const searchProduct = async (data: FilterProducts) => {
 
-    const{name} =  data
+    const{name, type} =  data
 
-    if (!name) {
-      console.log('Campo "name" está vazio.');
+    const nameValue: string = name || '';
+    const typeValue: string = type || '';
+
+    if (!nameValue && !typeValue) {
+      console.log('Nenhum campo foi preenchido para pesquisa');
       return; // Não faz a requisição se o campo estiver vazio
     }
 
-    const filterProd = await filterProductTableData(name)
+    const filterProd = await filterProductTableData({ name: nameValue, type: typeValue})
       setProducts(filterProd as stockEntriesProps[]);
+    
   };
+
 
   return (
     <>
