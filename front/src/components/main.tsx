@@ -54,7 +54,9 @@ export function Main() {
                     );
                   })
                 ) : (
-                  <p>Não há registro de produto</p>
+                  <TableRow>
+                  <TableCell colSpan={6} className='text-center'>Não há registro de produto</TableCell>
+                 </TableRow>
                 )}
               </TableBody>
             </Table>

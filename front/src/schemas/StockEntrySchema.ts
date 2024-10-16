@@ -37,4 +37,5 @@ export interface stockEntriesProps {
   salePrice: number;
   quantity: number;
   type: string;
+  totalPrice: number;
 }

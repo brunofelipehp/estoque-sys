@@ -1,9 +1,40 @@
+import { stockEntriesProps } from '@/schemas/StockEntrySchema';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { FaMoneyBillTransfer, FaMoneyBillTrendUp } from 'react-icons/fa6';
 import { MdOutlineWallet } from 'react-icons/md';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 
 export function Dashboard() {
+   const [costPriceTotal, setCostPriceTotal] = useState<number>(0);
+
+  // const {data: products } = useFetchStockEntries()
+
+  
+  
+  useEffect(() => {
+     async function costTotal () {
+     const response = await axios.get<stockEntriesProps[]>('http://localhost:3001/entries');
+
+    const productEntries = response.data.reduce((totalPrice: number, product: stockEntriesProps) => {
+      console.log(product.totalPrice);
+      
+    return  totalPrice + product.totalPrice
+    }, 0)
+
+
+    setCostPriceTotal(productEntries)
+
+    //console.log(productEntries);
+    }
+
+    costTotal()
+  }, [])
+  
+
+  
   return (
+    
     <div className="flex justify-center mt-24 gap-4 ">
       <Card className="w-60 h-40">
         <CardHeader>
@@ -14,7 +45,7 @@ export function Dashboard() {
         </CardHeader>
         <CardContent className="flex gap-2">
           <span>R$</span>
-          <span>1.450,00</span>
+          <span>{costPriceTotal}</span>
         </CardContent>
       </Card>
 

@@ -41,6 +41,8 @@ export const FormStockEntry = () => {
     if (productSelected) {
       const { category, supplier } = productSelected;
 
+      const totalPrice = data.costPrice * data.quantity;
+
       const productEntry: stockEntriesProps = {
         id: stockEntryId,
         productId,
@@ -51,6 +53,7 @@ export const FormStockEntry = () => {
         salePrice: data.salePrice,
         quantity: data.quantity,
         type: data.type,
+        totalPrice,
       };
 
       await postStockEntry(productEntry);
