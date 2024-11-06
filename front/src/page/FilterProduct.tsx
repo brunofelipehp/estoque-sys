@@ -22,6 +22,7 @@ import { stockEntriesProps } from '@/schemas/StockEntrySchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { IoSearchOutline } from 'react-icons/io5';
+import { MdLibraryBooks } from 'react-icons/md';
 import { z } from 'zod';
 import { Sidebar } from '../components/Sidebar';
 
@@ -112,7 +113,7 @@ export const FilterProduct = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {products ? (
+                {products && products.length > 0 ? (
                   products.map((product: stockEntriesProps) => {
                     return (
                       <TableRow key={product.productId}>
@@ -122,6 +123,11 @@ export const FilterProduct = () => {
                         <TableCell>{product.salePrice}</TableCell>
                         <TableCell>{product.quantity}</TableCell>
                         <TableCell>{product.type}</TableCell>
+                        <TableCell>
+                          <a href="" className='text-violetPrimer'>
+                          <MdLibraryBooks size={24} />
+                          </a>
+                       </TableCell>
                       </TableRow>
                     );
                   })
