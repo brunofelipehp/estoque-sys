@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Header } from '../components/Header';
 
+import { Loading } from '@/components/Loading';
 import { Input } from '@/components/ui/input';
 import {
   Select,
@@ -45,10 +46,10 @@ export const filterProductFormSchema = z
 type FilterProducts = z.infer<typeof filterProductFormSchema>;
 
 export const FilterProduct = () => {
-  const { filterProductTable, products } = useFilterProductTable();
-  
+  const { filterProductTable, products, loadingProduct, loadingFilter } = useFilterProductTable();
 
-  const { register, handleSubmit, setValue } = useForm<FilterProducts>({
+
+  const { register, handleSubmit, setValue, } = useForm<FilterProducts>({
     resolver: zodResolver(filterProductFormSchema),
   });
 
@@ -61,8 +62,8 @@ export const FilterProduct = () => {
       return;
     }
 
-     await filterProductTable({ name: name || '', type: type || '' });
-    
+    await filterProductTable({ name: name || '', type: type || '' });
+
   };
 
   return (
@@ -113,29 +114,40 @@ export const FilterProduct = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {products && products.length > 0 ? (
-                  products.map((product: stockEntriesProps) => {
-                    return (
-                      <TableRow key={product.productId}>
-                        <TableCell>{product.productName}</TableCell>
-                        <TableCell>{product.supplier}</TableCell>
-                        <TableCell>{product.costPrice}</TableCell>
-                        <TableCell>{product.salePrice}</TableCell>
-                        <TableCell>{product.quantity}</TableCell>
-                        <TableCell>{product.type}</TableCell>
-                        <TableCell>
-                          <a href="" className='text-violetPrimer'>
-                          <MdLibraryBooks size={24} />
-                          </a>
-                       </TableCell>
+                {loadingProduct || loadingFilter ?
+                  <TableRow>
+                    <TableCell colSpan={6} className='relative'>
+                      <Loading />
+                    </TableCell>
+                  </TableRow>
+                  :
+                  <>
+                    {products && products.length > 0 ? (
+                      products.map((product: stockEntriesProps) => {
+                        return (
+                          <TableRow key={product.productId}>
+                            <TableCell>{product.productName}</TableCell>
+                            <TableCell>{product.supplier}</TableCell>
+                            <TableCell>{product.costPrice}</TableCell>
+                            <TableCell>{product.salePrice}</TableCell>
+                            <TableCell>{product.quantity}</TableCell>
+                            <TableCell>{product.type}</TableCell>
+                            <TableCell>
+                              <a href="" className='text-violetPrimer'>
+                                <MdLibraryBooks size={24} />
+                              </a>
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })
+                    ) : (
+                      <TableRow>
+                        <TableCell colSpan={6} className='text-center'>Não há registro de produto</TableCell>
                       </TableRow>
-                    );
-                  })
-                ) : (
-                 <TableRow>
-                  <TableCell colSpan={6} className='text-center'>Não há registro de produto</TableCell>
-                 </TableRow>
-                )}
+                    )}
+                  </>
+                }
+
               </TableBody>
             </Table>
           </div>

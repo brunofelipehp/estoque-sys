@@ -6,35 +6,28 @@ import { MdOutlineWallet } from 'react-icons/md';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 
 export function Dashboard() {
-   const [costPriceTotal, setCostPriceTotal] = useState<number>(0);
+  const [costPriceTotal, setCostPriceTotal] = useState<number>(0);
 
-  // const {data: products } = useFetchStockEntries()
-
-  
-  
   useEffect(() => {
-     async function costTotal () {
-     const response = await axios.get<stockEntriesProps[]>('http://localhost:3001/entries');
+    async function costTotal() {
+      const response = await axios.get<stockEntriesProps[]>('http://localhost:3001/entries');
 
-    const productEntries = response.data.reduce((totalPrice: number, product: stockEntriesProps) => {
-      console.log(product.totalPrice);
-      
-    return  totalPrice + product.totalPrice
-    }, 0)
+      const productEntries = response.data.reduce((totalPrice: number, product: stockEntriesProps) => {
+        return totalPrice + product.totalPrice
+      }, 0)
 
 
-    setCostPriceTotal(productEntries)
+      setCostPriceTotal(productEntries)
 
-    //console.log(productEntries);
     }
 
     costTotal()
   }, [])
-  
 
-  
+
+
   return (
-    
+
     <div className="flex justify-center mt-24 gap-4 ">
       <Card className="w-60 h-40">
         <CardHeader>

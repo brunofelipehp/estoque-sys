@@ -32,9 +32,9 @@ const fetchSearchProduct = async (nameSearch: string , type: string) => {
 export const useFilterProductTable = () => {
   const queryClient = useQueryClient();
 
-  const {data: products} =  useQuery({queryKey: ['filterProduct'], queryFn: fetchAllEntriesProducts})
+  const {data: products, isLoading: loadingProduct} =  useQuery({queryKey: ['filterProduct'], queryFn: fetchAllEntriesProducts})
 
-  const {mutateAsync: filterProductTable} = useMutation({
+  const {mutateAsync: filterProductTable, isPending: loadingFilter } = useMutation({
     mutationFn: ({ name, type }: { name: string; type: string }) =>
       fetchSearchProduct(name, type),
     onSuccess: (filteredProducts) => {
@@ -42,7 +42,7 @@ export const useFilterProductTable = () => {
     },
   });
 
-  return {products, filterProductTable}
+  return {products, filterProductTable, loadingProduct, loadingFilter}
 };
 
 

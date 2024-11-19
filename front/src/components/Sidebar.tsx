@@ -1,4 +1,5 @@
 import { BiFolderPlus } from 'react-icons/bi';
+import { IoHome } from 'react-icons/io5';
 import { MdBusinessCenter } from 'react-icons/md';
 import { RxLayers } from 'react-icons/rx';
 import useMenuStore from '../store/toggleStore';
@@ -15,10 +16,21 @@ export function Sidebar() {
       }`}
     >
       <ul className="grid ml-5 gap-4">
+      <li>
+          <a
+            href="/"
+            className="flex gap-4 text-zinc-50 font-medium mt-5 items-center"
+          >
+            <IoHome size={32} />
+            <span className={`${!isOpen ? 'hidden' : 'visible'}`}>
+              Home
+            </span>
+          </a>
+        </li>
         <li>
           <a
             href="/register"
-            className="flex gap-4 text-zinc-50 font-medium mt-5 items-center"
+            className="flex gap-4 text-zinc-50 font-medium items-center"
           >
             <BiFolderPlus size={32} />
             <span className={`${!isOpen ? 'hidden' : 'visible'}`}>
