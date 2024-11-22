@@ -7,8 +7,6 @@ export function Dashboard() {
 
   const { productEntries, productOut, totalPrice } = usePricesEntries();
 
-
-
   return (
 
     <div className="flex justify-center mt-24 gap-4 ">

@@ -57,7 +57,7 @@ export function Main() {
                     {products ? (
                       products.map((products: stockEntriesProps) => {
                         return (
-                          <TableRow key={products.productId}>
+                          <TableRow key={products.id}>
                             <TableCell>{products.productName}</TableCell>
                             <TableCell>{products.supplier}</TableCell>
                             <TableCell>{products.costPrice}</TableCell>

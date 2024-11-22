@@ -23,7 +23,7 @@ import type {
 import { v4 as uuidv4 } from 'uuid';
 
 export const FormStockEntry = () => {
-  const { control, handleSubmit, setValue, register, reset } =
+  const { control, handleSubmit, setValue, register, reset, watch } =
     useForm<SchemaStockEntry>();
 
 
@@ -43,12 +43,14 @@ export const FormStockEntry = () => {
     if (productSelected) {
       const { category, supplier } = productSelected;
 
-      console.log(data.type);
+      const type = watch('type')
+
+      console.log(type);
 
       let totalCost = 0;
       let totalSale = 0;
 
-      if (data.type.includes('Entrada')) {
+      if (type === 'Entrada') {
 
         totalCost = data.costPrice * data.quantity;
 
@@ -57,9 +59,6 @@ export const FormStockEntry = () => {
         totalSale = data.salePrice * data.quantity;
 
       }
-
-
-
 
       const productEntry: stockEntriesProps = {
         id: stockEntryId,
@@ -70,7 +69,7 @@ export const FormStockEntry = () => {
         costPrice: data.costPrice,
         salePrice: data.salePrice,
         quantity: data.quantity,
-        type: data.type,
+        type,
         totalCost,
         totalSale
       };
@@ -91,6 +90,7 @@ export const FormStockEntry = () => {
 
         <Controller
           control={control}
+          name='name'
           render={({ field }) => (
             <Select
               {...field}
@@ -98,49 +98,51 @@ export const FormStockEntry = () => {
               placeholder="selecione um produto"
             />
           )}
-          {...register('name')}
+
         />
 
         <div className="grid grid-cols-2 w-full gap-2 items-center">
           <div className="">
-            <label htmlFor="nome" className="block">
+            <label htmlFor="cost" className="block">
               Preço de custo
             </label>
             <Input
               type="number"
+              id='cost'
               className="border border-zinc-300 w-full  p-4 rounded outline-indigo-400"
               placeholder=""
               {...register('costPrice')}
             />
           </div>
           <div className="">
-            <label htmlFor="nome" className="block">
+            <label htmlFor="sale" className="block">
               Preço de venda
             </label>
             <Input
               type="number"
+              id='sale'
               className="border border-zinc-300 w-full p-4 rounded outline-indigo-400"
               {...register('salePrice')}
             />
           </div>
         </div>
         <div>
-          <label htmlFor="">Quantidade</label>
+          <label htmlFor="quantity">Quantidade</label>
           <Input
             type="number"
-            id="quanty"
+            id="quantity"
             className="border border-zinc-300 w-full p-4 rounded outline-indigo-400"
             {...register('quantity')}
           />
         </div>
         <div>
-          <label htmlFor="">Entrada ou Saída</label>
+          <label>Entrada ou Saída</label>
 
           <ShadcnSelect
             onValueChange={(value: 'Entrada' | 'Saída') =>
               setValue('type', value)
             }
-            {...register('type')}
+
           >
             <SelectTrigger className="border border-zinc-300 w-full p-4 rounded outline-indigo-400 mb-4">
               <SelectValue placeholder="Selecione o tipo" />

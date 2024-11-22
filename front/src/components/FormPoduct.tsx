@@ -81,27 +81,30 @@ export const FormProduct = () => {
           />
         </div>
         <div>
-          <label className="block">Nome</label>
+          <label className="block" htmlFor='name'>Nome</label>
           <Input
             type="text"
+            id='name'
             className="border border-zinc-300 w-full p-4 rounded outline-indigo-400"
             placeholder="Nome do produto"
             {...register('name')}
           />
         </div>
         <div>
-          <label className="block">Fornecedor</label>
+          <label className="block" htmlFor='supplier'>Fornecedor</label>
           <Input
             type="text"
+            id='supplier'
             className="border border-zinc-300 w-3/4 p-4 rounded outline-indigo-400"
             placeholder="Fornecedor"
             {...register('supplier')}
           />
         </div>
         <div>
-          <label className="block">Categoria</label>
+          <label className="block" htmlFor='category'>Categoria</label>
           <Input
             type="text"
+            id='category'
             className="border border-zinc-300 w-2/3 p-4 rounded outline-indigo-400"
             placeholder="Categoria"
             {...register('category')}
@@ -109,7 +112,7 @@ export const FormProduct = () => {
         </div>
 
         <div>
-          <label className="block">Descrição</label>
+          <label className="block" htmlFor='description'>Descrição</label>
           <Textarea
             id="description"
             placeholder="Descrição"

@@ -125,7 +125,7 @@ export const FilterProduct = () => {
                     {products && products.length > 0 ? (
                       products.map((product: stockEntriesProps) => {
                         return (
-                          <TableRow key={product.productId}>
+                          <TableRow key={product.id}>
                             <TableCell>{product.productName}</TableCell>
                             <TableCell>{product.supplier}</TableCell>
                             <TableCell>{product.costPrice}</TableCell>
