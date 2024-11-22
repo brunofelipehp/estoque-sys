@@ -26,6 +26,8 @@ export const FormStockEntry = () => {
   const { control, handleSubmit, setValue, register, reset } =
     useForm<SchemaStockEntry>();
 
+
+
   const { data } = useFetchProducts();
   const { mutateAsync: StockEntryById } = useFetchProductById();
 
@@ -41,7 +43,23 @@ export const FormStockEntry = () => {
     if (productSelected) {
       const { category, supplier } = productSelected;
 
-      const totalPrice = data.costPrice * data.quantity;
+      console.log(data.type);
+
+      let totalCost = 0;
+      let totalSale = 0;
+
+      if (data.type.includes('Entrada')) {
+
+        totalCost = data.costPrice * data.quantity;
+
+      } else {
+
+        totalSale = data.salePrice * data.quantity;
+
+      }
+
+
+
 
       const productEntry: stockEntriesProps = {
         id: stockEntryId,
@@ -53,7 +71,8 @@ export const FormStockEntry = () => {
         salePrice: data.salePrice,
         quantity: data.quantity,
         type: data.type,
-        totalPrice,
+        totalCost,
+        totalSale
       };
 
       await postStockEntry(productEntry);

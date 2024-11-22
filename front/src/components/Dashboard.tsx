@@ -1,28 +1,11 @@
-import { stockEntriesProps } from '@/schemas/StockEntrySchema';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { usePricesEntries } from '@/hooks/useStockEntries';
 import { FaMoneyBillTransfer, FaMoneyBillTrendUp } from 'react-icons/fa6';
 import { MdOutlineWallet } from 'react-icons/md';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 
 export function Dashboard() {
-  const [costPriceTotal, setCostPriceTotal] = useState<number>(0);
 
-  useEffect(() => {
-    async function costTotal() {
-      const response = await axios.get<stockEntriesProps[]>('http://localhost:3001/entries');
-
-      const productEntries = response.data.reduce((totalPrice: number, product: stockEntriesProps) => {
-        return totalPrice + product.totalPrice
-      }, 0)
-
-
-      setCostPriceTotal(productEntries)
-
-    }
-
-    costTotal()
-  }, [])
+  const { productEntries, productOut, totalPrice } = usePricesEntries();
 
 
 
@@ -38,7 +21,7 @@ export function Dashboard() {
         </CardHeader>
         <CardContent className="flex gap-2">
           <span>R$</span>
-          <span>{costPriceTotal}</span>
+          <span>{productEntries}</span>
         </CardContent>
       </Card>
 
@@ -51,7 +34,7 @@ export function Dashboard() {
         </CardHeader>
         <CardContent className="flex gap-2">
           <span>R$</span>
-          <span>1.450,00</span>
+          <span>{productOut}</span>
         </CardContent>
       </Card>
       <Card className="w-60 h-40">
@@ -63,7 +46,7 @@ export function Dashboard() {
         </CardHeader>
         <CardContent className="flex gap-2">
           <span>R$</span>
-          <span>1.450,00</span>
+          <span>{totalPrice}</span>
         </CardContent>
       </Card>
     </div>

@@ -27,28 +27,30 @@
   ],
   "entries": [
     {
-      "id": "748f8286-074a-4752-9d0d-fb9059f4e48c",
+      "id": "340dd93e-98a9-42bd-8d3e-94226ea6080d",
       "productId": "8736980b-0eb3-4d8f-ae3c-2d7493e2aa13",
       "productName": "Chinelo Havainas",
       "category": "Calçados",
       "supplier": "eiouei",
-      "costPrice": "15",
-      "salePrice": "20",
-      "quantity": "20",
+      "costPrice": "10",
+      "salePrice": "14",
+      "quantity": "10",
       "type": "Entrada",
-      "totalPrice": 300
+      "totalCost": 100,
+      "totalSale": 0
     },
     {
-      "id": "379abcdd-34b4-4695-ba67-cd2e2d06bd5b",
-      "productId": "986262c5-34c4-46f6-ab2b-c4530fa9cccc",
-      "productName": "Smart Tv LG",
-      "category": "Eletroeletrônico",
-      "supplier": "LG",
-      "costPrice": "2500",
-      "salePrice": "4500",
-      "quantity": "3",
-      "type": "Entrada",
-      "totalPrice": 7500
+      "id": "327e92b7-b52e-4589-ae78-7bd6c087e3d2",
+      "productId": "8736980b-0eb3-4d8f-ae3c-2d7493e2aa13",
+      "productName": "Chinelo Havainas",
+      "category": "Calçados",
+      "supplier": "eiouei",
+      "costPrice": "10",
+      "salePrice": "14",
+      "quantity": "5",
+      "type": "Saída",
+      "totalCost": 0,
+      "totalSale": 70
     }
   ]
 }

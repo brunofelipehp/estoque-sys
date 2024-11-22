@@ -12,6 +12,13 @@ const fetchStockEntry = async (data: stockEntriesProps) => {
   return data;
 };
 
+const pricesCost = async () =>  {
+  const response = await axios.get<stockEntriesProps[]>('http://localhost:3001/entries');
+
+
+  return response
+}
+
 export const useFetchStockEntries = () => {
   return useQuery({
     queryKey: ['stockEntries'],
@@ -32,3 +39,25 @@ export const useFetchStockEntry = () => {
     },
   });
 };
+
+export const usePricesEntries = () => {
+
+const {data} = useQuery({queryKey: ['stockEntries'], queryFn: pricesCost})
+
+
+  const productEntries = data?.data.reduce((totalPrice: number, product: stockEntriesProps) => {
+    return totalPrice + product.totalCost
+  }, 0)
+
+  const productOut = data?.data.reduce((totalPrice: number, product: stockEntriesProps) => {
+    return totalPrice + product.totalSale
+  }, 0)
+
+
+  const totalPrice = productOut && productEntries ? productOut - productEntries : 0;
+
+  
+  
+
+  return {productEntries, productOut, totalPrice}
+}
