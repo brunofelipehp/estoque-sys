@@ -24,7 +24,7 @@ export function Main() {
       <div className="  w-3/6 mx-auto space-y-7">
         <div className="flex justify-end">
           <a
-            href='/products'
+            href={`/products`}
             className="bg-zinc-50 border border-violetPrimer text-violetPrimer hover:bg-violetPrimer hover:text-zinc-50 rounded-sm p-2 w-32 flex justify-center gap-2 items-center cursor-pointer transition-all ease-in duration-500 font-medium mt-9"
           >
             Veja Mais
