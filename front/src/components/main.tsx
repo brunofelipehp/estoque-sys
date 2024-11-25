@@ -12,6 +12,7 @@ import { FiPlusCircle } from "react-icons/fi";
 import { Dashboard } from './Dashboard';
 
 import { Loading } from '@/components/Loading';
+import { Link } from 'react-router-dom';
 
 
 
@@ -23,13 +24,13 @@ export function Main() {
       <Dashboard />
       <div className="  w-3/6 mx-auto space-y-7">
         <div className="flex justify-end">
-          <a
-            href={`/products`}
+          <Link
+            to={`/products`}
             className="bg-zinc-50 border border-violetPrimer text-violetPrimer hover:bg-violetPrimer hover:text-zinc-50 rounded-sm p-2 w-32 flex justify-center gap-2 items-center cursor-pointer transition-all ease-in duration-500 font-medium mt-9"
           >
             Veja Mais
             <FiPlusCircle />
-          </a>
+          </Link>
         </div>
         <div className="p-2 border rounded-lg">
           <Table>
