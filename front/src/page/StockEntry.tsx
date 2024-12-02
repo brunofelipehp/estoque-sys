@@ -6,7 +6,10 @@ export function StockEntry() {
   return (
     <>
       <Header />
-      <div className="flex h-screen  bg-zinc-50">
+
+
+      <div className="flex  h-screen  bg-zinc-50">
+
         <Sidebar />
         <FormStockEntry />
       </div>

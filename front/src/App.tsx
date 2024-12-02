@@ -6,9 +6,11 @@ import './main.css';
 function App() {
   return (
     <div>
+
       <Header />
       <div className="flex bg-zinc-50 h-screen">
         <Sidebar />
+
         <Main />
       </div>
     </div>

@@ -21,6 +21,7 @@ export function Main() {
 
   return (
     <div className="flex flex-col w-full bg-zinc-50 mt-32">
+
       <Dashboard />
       <div className="  w-3/6 mx-auto space-y-7">
         <div className="flex justify-end">

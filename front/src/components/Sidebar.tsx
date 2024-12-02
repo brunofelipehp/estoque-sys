@@ -10,53 +10,65 @@ export function Sidebar() {
 
   return (
     <section
-      className={`${isOpen
-        ? 'bg-violetPrimer w-[13rem] flex flex-col  z-50 gap-7 transition-all duration-200 ease-in-out'
-        : 'bg-violetPrimer  w-[4.875rem] flex flex-col  gap-7 transition-all duration-200 ease-in-out'
-        }`}
     >
-      <ul className="grid ml-5 gap-4">
-        <li>
-          <Link
-            to={`/`}
-            className="flex gap-4 text-zinc-50 font-medium mt-5 items-center"
-          >
-            <IoHome size={32} />
-            <span className={`${!isOpen ? 'hidden' : 'visible'}`}>
-              Home
-            </span>
-          </Link>
-        </li>
-        <li>
-          <Link
-            to={`/register`}
-            className="flex gap-4 text-zinc-50 font-medium items-center"
-          >
-            <BiFolderPlus size={32} />
-            <span className={`${!isOpen ? 'hidden' : 'visible'}`}>
-              Cadastro
-            </span>
-          </Link>
-        </li>
-        <li>
-          <Link
-            to={`/entry`}
-            className="flex gap-4 text-zinc-50 font-medium items-center"
-          >
-            <MdBusinessCenter size={32} />
-            <span className={`${!isOpen ? 'hidden' : 'visible'}`}>Entrada</span>
-          </Link>
-        </li>
-        <li className="flex gap-4 text-zinc-50 font-medium items-center">
-          <Link
-            to={`/products`}
-            className="flex gap-4 text-zinc-50 font-medium items-center"
-          >
-            <RxLayers size={32} />
-            <span className={`${!isOpen ? 'hidden' : 'visible'}`}>filtro</span>
-          </Link>
-        </li>
-      </ul>
+      {/* <div
+        className={`${isOpen
+          ? 'bg-backSidebar w-screen flex flex-col absolute   z-30 h-screen  gap-7 transition-all duration-200 ease-in-out'
+          : 'hidden  transition-all duration-200 ease-in-out'
+          }`}
+      >
+
+      </div> */}
+      <nav
+        className={`${isOpen
+          ? 'bg-violetPrimer w-[13rem] flex flex-col h-screen  gap-7 transition-all duration-200 ease-in-out'
+          : 'bg-violetPrimer  w-[4.875rem] flex flex-col  h-screen  gap-7 transition-all duration-200 ease-in-out'
+          }`}
+      >
+        <ul className="grid ml-5 gap-4">
+          <li>
+            <Link
+              to={`/`}
+              className="flex gap-4 text-zinc-50 font-medium mt-5 items-center"
+            >
+              <IoHome size={32} />
+              <span className={`${!isOpen ? 'hidden' : 'visible'}`}>
+                Home
+              </span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              to={`/register`}
+              className="flex gap-4 text-zinc-50 font-medium items-center"
+            >
+              <BiFolderPlus size={32} />
+              <span className={`${!isOpen ? 'hidden' : 'visible'}`}>
+                Cadastro
+              </span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              to={`/entry`}
+              className="flex gap-4 text-zinc-50 font-medium items-center"
+            >
+              <MdBusinessCenter size={32} />
+              <span className={`${!isOpen ? 'hidden' : 'visible'}`}>Entrada</span>
+            </Link>
+          </li>
+          <li className="flex gap-4 text-zinc-50 font-medium items-center">
+            <Link
+              to={`/products`}
+              className="flex gap-4 text-zinc-50 font-medium items-center"
+            >
+              <RxLayers size={32} />
+              <span className={`${!isOpen ? 'hidden' : 'visible'}`}>filtro</span>
+            </Link>
+          </li>
+        </ul>
+      </nav>
+
     </section>
   );
 }

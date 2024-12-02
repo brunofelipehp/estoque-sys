@@ -52,6 +52,7 @@ module.exports = {
           foreground: 'hsl(var(--card-foreground))',
         },
         violetPrimer: '#6d28d9',
+        backSidebar: 'rgb(0, 0, 0, 0.4)',
       },
       borderRadius: {
         lg: 'var(--radius)',

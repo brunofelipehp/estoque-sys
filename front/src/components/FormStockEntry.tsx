@@ -20,10 +20,12 @@ import type {
   stockEntriesProps,
 } from '@/schemas/StockEntrySchema';
 
+//mport { useToast } from '@/hooks/use-toast';
 import { v4 as uuidv4 } from 'uuid';
 
+
 export const FormStockEntry = () => {
-  const { control, handleSubmit, setValue, register, reset, watch } =
+  const { control, handleSubmit, setValue, register, reset, watch, formState: { errors } } =
     useForm<SchemaStockEntry>();
 
 
@@ -32,6 +34,7 @@ export const FormStockEntry = () => {
   const { mutateAsync: StockEntryById } = useFetchProductById();
 
   const { mutateAsync: postStockEntry } = useFetchStockEntry();
+
 
   const onSubmit = async (data: SchemaStockEntry) => {
     const productId = data.name.value;
@@ -76,12 +79,16 @@ export const FormStockEntry = () => {
 
       await postStockEntry(productEntry);
 
+
+
       reset();
+
     }
   };
 
   return (
-    <div className="flex justify-center mt-24 w-full">
+    <div className="flex justify-center  mt-24 w-full">
+      {/* <AlertProduct /> */}
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-3/6 flex flex-col gap-4"
@@ -111,8 +118,9 @@ export const FormStockEntry = () => {
               id='cost'
               className="border border-zinc-300 w-full  p-4 rounded outline-indigo-400"
               placeholder=""
-              {...register('costPrice')}
+              {...register('costPrice', { setValueAs: (value) => value ? parseFloat(value) : 0, min: 1 })}
             />
+            {errors.costPrice && (<p>{errors.costPrice.message}</p>)}
           </div>
           <div className="">
             <label htmlFor="sale" className="block">
@@ -122,8 +130,9 @@ export const FormStockEntry = () => {
               type="number"
               id='sale'
               className="border border-zinc-300 w-full p-4 rounded outline-indigo-400"
-              {...register('salePrice')}
+              {...register('salePrice', { setValueAs: (value) => value ? parseFloat(value) : 0 })}
             />
+            {errors.salePrice && (<p>{errors.salePrice.message}</p>)}
           </div>
         </div>
         <div>
@@ -134,6 +143,7 @@ export const FormStockEntry = () => {
             className="border border-zinc-300 w-full p-4 rounded outline-indigo-400"
             {...register('quantity')}
           />
+          {errors.quantity && (<p>{errors.quantity.message}</p>)}
         </div>
         <div>
           <label>Entrada ou Saída</label>
@@ -152,6 +162,7 @@ export const FormStockEntry = () => {
               <SelectItem value="Saída">Saída</SelectItem>
             </SelectContent>
           </ShadcnSelect>
+          {errors.type && (<p>{errors.type.message}</p>)}
         </div>
         <Button type="submit" className="w-36  p-3 rounded-lg  text-white">
           Enviar

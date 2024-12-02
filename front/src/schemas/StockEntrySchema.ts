@@ -8,15 +8,15 @@ export const stockEntryFormSchema = z.object({
   }),
   costPrice: z
     .string()
-    .min(1, { message: 'Digite o Valor' })
-    .transform((value) => Number(value)),
+    .min(1, { message: 'O Valor deve ser  maior que  0' })
+    .transform((value) => parseFloat(value)),
   salePrice: z
     .string()
-    .min(1, { message: 'Digite o Valor' })
-    .transform((value) => Number(value)),
+    .min(1, { message:  'O Valor deve ser  maior que  0' })
+    .transform((value) => parseFloat(value)),
   quantity: z
     .string()
-    .min(1, { message: 'Digite o Valor' })
+    .min(1, { message:  'A quantidade deve ser  maior que  0' })
     .transform((value) => Number(value)),
   type: z.enum(['Entrada', 'Saída'], {
     errorMap: () => ({

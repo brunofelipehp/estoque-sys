@@ -1,12 +1,13 @@
 import type { stockEntriesProps } from '@/schemas/StockEntrySchema';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
+import { toast } from 'sonner';
 
 const fetchAllStockEntries = async () => {
   await axios.get('http://localhost:3001/products');
 };
 
-const fetchStockEntry = async (data: stockEntriesProps) => {
+const fetchStockEntryCreate = async (data: stockEntriesProps) => {
   await axios.post('http://localhost:3001/entries', data);
 
   return data;
@@ -30,13 +31,21 @@ export const useFetchStockEntry = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: stockEntriesProps) => fetchStockEntry(data),
-    onSuccess: () => {
+    mutationFn: (data: stockEntriesProps) => fetchStockEntryCreate(data),
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['stockEntries'] });
+
+      if (data.type === "Entrada") {
+        toast.success('Entrada de produto registrada com sucesso!!!')
+      } else {
+        toast.success('saida de produto registrada com sucesso!!!')
+      }
     },
     onError: (error) => {
       console.error('Error registering the product in stock ', error);
+      toast.success('Erro ao registra entrada de  produto !!!')
     },
+    
   });
 };
 
