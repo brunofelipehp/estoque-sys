@@ -8,7 +8,7 @@ const fetchAllStockEntries = async () => {
 };
 
 const fetchStockEntryCreate = async (data: stockEntriesProps) => {
-  await axios.post('http://localhost:3001/entries', data);
+ await axios.post('http://localhost:3001/entries', data);
 
   return data;
 };
@@ -32,21 +32,28 @@ export const useFetchStockEntry = () => {
 
   return useMutation({
     mutationFn: (data: stockEntriesProps) => fetchStockEntryCreate(data),
+    onMutate: () => {
+      toast.loading('Registrando...')
+    },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['stockEntries'] });
 
       if (data.type === "Entrada") {
+        toast.dismiss()
         toast.success('Entrada de produto registrada com sucesso!!!')
       } else {
+        toast.dismiss()
         toast.success('saida de produto registrada com sucesso!!!')
       }
     },
-    onError: (error) => {
-      console.error('Error registering the product in stock ', error);
+    onError: () => {
+      
+      toast.dismiss()
       toast.success('Erro ao registra entrada de  produto !!!')
-    },
+     },
     
   });
+  
 };
 
 export const usePricesEntries = () => {

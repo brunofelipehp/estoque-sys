@@ -339,6 +339,44 @@
       "quantity": "",
       "totalCost": 0,
       "totalSale": 0
+    },
+    {
+      "id": "093b6387-b053-42e6-b4d7-100e5fc3113f",
+      "productId": "8736980b-0eb3-4d8f-ae3c-2d7493e2aa13",
+      "productName": "Chinelo Havainas",
+      "category": "Calçados",
+      "supplier": "eiouei",
+      "costPrice": 10,
+      "salePrice": 15,
+      "quantity": "3",
+      "type": "Entrada",
+      "totalCost": 30,
+      "totalSale": 0
+    },
+    {
+      "id": "b0d72854-ce74-4ecd-b66b-6f2d12a26d51",
+      "productId": "2efb47ce-3a39-42b9-bbe6-e5cf5f0db462",
+      "productName": "Xbox serie X",
+      "category": "Eletroeletrônico",
+      "supplier": "Microsoft",
+      "costPrice": 0,
+      "salePrice": 0,
+      "quantity": "",
+      "totalCost": 0,
+      "totalSale": 0
+    },
+    {
+      "id": "a2002396-936b-4075-a91c-a59a1d98ab35",
+      "productId": "986262c5-34c4-46f6-ab2b-c4530fa9cccc",
+      "productName": "Smart Tv LG",
+      "category": "Eletroeletrônico",
+      "supplier": "LG",
+      "costPrice": 3,
+      "salePrice": 8,
+      "quantity": "7",
+      "type": "Saída",
+      "totalCost": 0,
+      "totalSale": 56
     }
   ]
 }
