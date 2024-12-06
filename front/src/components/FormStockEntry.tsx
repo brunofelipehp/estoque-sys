@@ -15,18 +15,29 @@ import {
   Select as ShadcnSelect,
 } from '@/components/ui/select';
 
-import type {
-  SchemaStockEntry,
-  stockEntriesProps,
+import {
+  stockEntryFormSchema,
+  type SchemaStockEntry,
+  type stockEntriesProps
 } from '@/schemas/StockEntrySchema';
 
 //mport { useToast } from '@/hooks/use-toast';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { v4 as uuidv4 } from 'uuid';
 
 
 export const FormStockEntry = () => {
   const { control, handleSubmit, setValue, register, reset, watch, formState: { errors } } =
-    useForm<SchemaStockEntry>();
+    useForm<SchemaStockEntry>({
+      resolver: zodResolver(stockEntryFormSchema),
+      defaultValues: {
+        name: { value: '', label: '' },
+        costPrice: 0,
+        salePrice: 0,
+        quantity: 0,
+        type: undefined,
+      },
+    });
 
 
 
@@ -118,9 +129,10 @@ export const FormStockEntry = () => {
               id='cost'
               className="border border-zinc-300 w-full  p-4 rounded outline-indigo-400"
               placeholder=""
-              {...register('costPrice', { setValueAs: (value) => value ? parseFloat(value) : 0, min: 1 })}
+              {...register('costPrice', { valueAsNumber: true })}
+              defaultValue={0}
             />
-            {errors.costPrice && (<p>{errors.costPrice.message}</p>)}
+            {errors.costPrice && (<span className='text-red-700 '>{errors.costPrice.message}</span>)}
           </div>
           <div className="">
             <label htmlFor="sale" className="block">
@@ -130,9 +142,10 @@ export const FormStockEntry = () => {
               type="number"
               id='sale'
               className="border border-zinc-300 w-full p-4 rounded outline-indigo-400"
-              {...register('salePrice', { setValueAs: (value) => value ? parseFloat(value) : 0 })}
+              {...register('salePrice', { valueAsNumber: true })}
+              defaultValue={0}
             />
-            {errors.salePrice && (<p>{errors.salePrice.message}</p>)}
+            {errors.salePrice && (<span className='text-red-700 text-sm'>{errors.salePrice.message}</span>)}
           </div>
         </div>
         <div>
@@ -141,9 +154,10 @@ export const FormStockEntry = () => {
             type="number"
             id="quantity"
             className="border border-zinc-300 w-full p-4 rounded outline-indigo-400"
-            {...register('quantity')}
+            {...register('quantity', { valueAsNumber: true })}
+            defaultValue={0}
           />
-          {errors.quantity && (<p>{errors.quantity.message}</p>)}
+          {errors.quantity && (<span className='text-red-700 text-sm'>{errors.quantity.message}</span>)}
         </div>
         <div>
           <label>Entrada ou Saída</label>
@@ -162,7 +176,7 @@ export const FormStockEntry = () => {
               <SelectItem value="Saída">Saída</SelectItem>
             </SelectContent>
           </ShadcnSelect>
-          {errors.type && (<p>{errors.type.message}</p>)}
+          {errors.type && (<span className='text-red-700 text-sm'>{errors.type.message}</span>)}
         </div>
         <Button type="submit" className="w-36  p-3 rounded-lg  text-white">
           Enviar
