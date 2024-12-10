@@ -525,6 +525,17 @@
       "type": "Entrada",
       "totalCost": 3,
       "totalSale": 0
+    },
+    {
+      "id": "f838483d-0360-4b8d-9ea9-6abb6cc13123",
+      "productId": "",
+      "productName": "",
+      "costPrice": 3,
+      "salePrice": 3,
+      "quantity": 3,
+      "type": "Entrada",
+      "totalCost": 9,
+      "totalSale": 0
     }
   ]
 }

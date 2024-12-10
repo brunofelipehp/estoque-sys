@@ -26,6 +26,32 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { v4 as uuidv4 } from 'uuid';
 
 
+const customStyles = {
+  control: (base: any, state: any) => ({
+    ...base,
+    border: state.isFocused
+      ? '2px solid #6d28d9' // Borda verde no foco
+      : '1px solid #ccc', // Borda cinza padrão
+    boxShadow: 'none',
+    transition: 'border-color 0.2s ease, box-shadow 0.2s ease', // Transição suave
+    '&:hover': {
+      borderColor: '#6d28d9', // Cor da borda no hover
+    },
+  }),
+  option: (base: any, state: any) => ({
+    ...base,
+    backgroundColor: state.isFocused
+      ? '#6d28d9'
+      : 'white',
+    color: 'black',
+    '&:hover': {
+      backgroundColor: '#6d28d9',
+      color: 'white',
+    },
+  }),
+};
+
+
 export const FormStockEntry = () => {
   const { control, handleSubmit, setValue, register, reset, watch, formState: { errors } } =
     useForm<SchemaStockEntry>({
@@ -114,12 +140,13 @@ export const FormStockEntry = () => {
               {...field}
               options={data}
               placeholder="selecione um produto"
+              styles={customStyles}
             />
           )}
 
         />
 
-        <div className="grid grid-cols-2 w-full gap-2 items-center">
+        <div className="grid grid-cols-2 w-full gap-2 ">
           <div className="">
             <label htmlFor="cost" className="block">
               Preço de custo
@@ -132,7 +159,7 @@ export const FormStockEntry = () => {
               {...register('costPrice', { valueAsNumber: true })}
               defaultValue={0}
             />
-            {errors.costPrice && (<span className='text-red-700 '>{errors.costPrice.message}</span>)}
+            {errors.costPrice && (<span className='text-red-700 text-sm'>{errors.costPrice.message}</span>)}
           </div>
           <div className="">
             <label htmlFor="sale" className="block">
