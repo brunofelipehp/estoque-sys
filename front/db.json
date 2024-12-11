@@ -23,6 +23,46 @@
       "category": "Eletroeletrônico",
       "description": "Vídeo Xbox serie X SSD 1 TB Preto 2 controles",
       "image": "/uploads/blob:http://localhost:5173/bd8e5ad7-edf2-4966-be0d-df2ed9fa9f5d"
+    },
+    {
+      "id": "61a59e82-a32b-4daa-b766-0a1b72cca1d2",
+      "name": "Chinelo Adidas",
+      "supplier": "Adidas",
+      "category": "Calçados",
+      "description": "Chinelo Adidas Branco e preto",
+      "image": "/uploads/blob:http://localhost:5173/0548f5e8-1640-4442-aa31-bbcadd153581"
+    },
+    {
+      "id": "e282f8ec-0d8f-4484-8b68-921b20bacba2",
+      "name": "Chinelo Nike",
+      "supplier": "Nike",
+      "category": "Calçados",
+      "description": "Chinelo Nike branco e Preto",
+      "image": "/uploads/blob:http://localhost:5173/baf56a2c-5c56-426a-9523-2113d060228a"
+    },
+    {
+      "id": "ddffa071-d03c-48be-acd0-afed8c7a236c",
+      "name": "Chinelo Coca",
+      "supplier": "Coca cola",
+      "category": "Calçados",
+      "description": "Chinelo coca-cola preto e branco 38",
+      "image": "/uploads/blob:http://localhost:5173/caea1a48-e1d9-439a-8eff-91b2f6154202"
+    },
+    {
+      "id": "b05c865f-09a3-4040-8bb5-587560c3a837",
+      "name": "Chinelo rider",
+      "supplier": "rider",
+      "category": "Calçados",
+      "description": "Chinelo rider branco e preto 44",
+      "image": "/uploads/blob:http://localhost:5173/adf6081a-7f3e-473e-9960-c07b377b2e4a"
+    },
+    {
+      "id": "bae0dc0a-61ea-4708-a7eb-3f9223467704",
+      "name": "Chinelo Coca",
+      "supplier": "Coca cola",
+      "category": "Calçados",
+      "description": "Chinelo coca-cola",
+      "image": "/uploads/blob:http://localhost:5173/946bed69-6cb4-4c06-bd8f-7fca6272d8d0"
     }
   ],
   "entries": [

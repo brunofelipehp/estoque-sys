@@ -18,5 +18,5 @@ export const useImagePreview = () => {
     }
   };
 
-  return { previewImage, handleImageChange };
+  return { previewImage, setPreviewImage, handleImageChange };
 };

@@ -5,20 +5,16 @@ import { Textarea } from '@/components/ui/textarea';
 import { useFetchPostProduct } from '@/hooks/useProducts';
 
 import { useImagePreview } from '@/hooks/useImagePreview';
-import type { ProductSchema } from '@/schemas/ProductSchema';
+import { type ProductSchema } from '@/schemas/ProductSchema';
 import { useFormContext } from 'react-hook-form';
 import { IoMdCloudUpload } from 'react-icons/io';
 import { v4 as uuidv4 } from 'uuid';
 
 export const FormProduct = () => {
-  //const [previewImage, setPreviewImage] = useState<string | null>(null);
 
-  // const { register, handleSubmit, setValue } = useForm<ProductSchema>({
-  // 	resolver: zodResolver(createProductSchema),
-  // });
-  const { register, handleSubmit, reset } = useFormContext<ProductSchema>();
+  const { register, handleSubmit, reset, formState: { errors } } = useFormContext<ProductSchema>();
 
-  const { handleImageChange, previewImage } = useImagePreview();
+  const { handleImageChange, previewImage, setPreviewImage } = useImagePreview();
 
   const { mutateAsync: fetchProduct } = useFetchPostProduct();
 
@@ -41,6 +37,7 @@ export const FormProduct = () => {
     await fetchProduct(newProduct);
 
     reset();
+    setPreviewImage('')
   };
 
   return (
@@ -79,6 +76,7 @@ export const FormProduct = () => {
             {...register('image')}
             onChange={handleImageChange}
           />
+          {errors.image && (<span className='text-red-500 text-sm'>{errors.image.message}</span>)}
         </div>
         <div>
           <label className="block" htmlFor='name'>Nome</label>
@@ -89,6 +87,7 @@ export const FormProduct = () => {
             placeholder="Nome do produto"
             {...register('name')}
           />
+          {errors.name && (<span className='text-red-500 text-sm'>{errors.name.message}</span>)}
         </div>
         <div>
           <label className="block" htmlFor='supplier'>Fornecedor</label>
@@ -99,6 +98,7 @@ export const FormProduct = () => {
             placeholder="Fornecedor"
             {...register('supplier')}
           />
+          {errors.supplier && (<span className='text-red-500 text-sm'>{errors.supplier.message}</span>)}
         </div>
         <div>
           <label className="block" htmlFor='category'>Categoria</label>
@@ -109,6 +109,7 @@ export const FormProduct = () => {
             placeholder="Categoria"
             {...register('category')}
           />
+          {errors.category && (<span className='text-red-500 text-sm'>{errors.category.message}</span>)}
         </div>
 
         <div>
@@ -119,6 +120,7 @@ export const FormProduct = () => {
             className="border border-zinc-300 w-full  p-4 rounded outline-indigo-400"
             {...register('description')}
           />
+          {errors.description && (<span className='text-red-500 text-sm'>{errors.description.message}</span>)}
         </div>
 
         <Button type="submit" className="w-36  p-3 rounded-lg  text-white">

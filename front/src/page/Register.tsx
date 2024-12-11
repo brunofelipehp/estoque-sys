@@ -11,6 +11,13 @@ import { Sidebar } from '../components/Sidebar';
 export const Register = () => {
   const methods = useForm<ProductSchema>({
     resolver: zodResolver(createProductSchema),
+    defaultValues: {
+      name: '',
+      supplier: '',
+      category: '',
+      description: '',
+      image: undefined
+    }
   });
 
   return (
