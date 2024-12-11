@@ -21,35 +21,9 @@ import {
   type stockEntriesProps
 } from '@/schemas/StockEntrySchema';
 
-//mport { useToast } from '@/hooks/use-toast';
+import { stylesFormSelectProduct } from '@/lib/StylesFormSelect';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { v4 as uuidv4 } from 'uuid';
-
-
-const customStyles = {
-  control: (base: any, state: any) => ({
-    ...base,
-    border: state.isFocused
-      ? '2px solid #6d28d9' // Borda verde no foco
-      : '1px solid #ccc', // Borda cinza padrão
-    boxShadow: 'none',
-    transition: 'border-color 0.2s ease, box-shadow 0.2s ease', // Transição suave
-    '&:hover': {
-      borderColor: '#6d28d9', // Cor da borda no hover
-    },
-  }),
-  option: (base: any, state: any) => ({
-    ...base,
-    backgroundColor: state.isFocused
-      ? '#6d28d9'
-      : 'white',
-    color: 'black',
-    '&:hover': {
-      backgroundColor: '#6d28d9',
-      color: 'white',
-    },
-  }),
-};
 
 
 export const FormStockEntry = () => {
@@ -57,15 +31,13 @@ export const FormStockEntry = () => {
     useForm<SchemaStockEntry>({
       resolver: zodResolver(stockEntryFormSchema),
       defaultValues: {
-        name: { value: '', label: '' },
+        name: { value: '', label: 'Selecione o produto...' },
         costPrice: 0,
         salePrice: 0,
         quantity: 0,
         type: undefined,
       },
     });
-
-
 
   const { data } = useFetchProducts();
   const { mutateAsync: StockEntryById } = useFetchProductById();
@@ -116,8 +88,6 @@ export const FormStockEntry = () => {
 
       await postStockEntry(productEntry);
 
-
-
       reset();
 
     }
@@ -140,11 +110,13 @@ export const FormStockEntry = () => {
               {...field}
               options={data}
               placeholder="selecione um produto"
-              styles={customStyles}
+              styles={stylesFormSelectProduct}
             />
           )}
 
         />
+
+        {errors.name?.value && (<span className='text-red-700 text-sm'>{errors.name.value.message}</span>)}
 
         <div className="grid grid-cols-2 w-full gap-2 ">
           <div className="">
@@ -190,10 +162,10 @@ export const FormStockEntry = () => {
           <label>Entrada ou Saída</label>
 
           <ShadcnSelect
+            value={watch('type') || ''}
             onValueChange={(value: 'Entrada' | 'Saída') =>
               setValue('type', value)
             }
-
           >
             <SelectTrigger className="border border-zinc-300 w-full p-4 rounded outline-indigo-400 mb-4">
               <SelectValue placeholder="Selecione o tipo" />

@@ -1,34 +1,8 @@
 import { z } from 'zod';
 
-// export const stockEntryFormSchema = z.object({
-//   id: z.string().uuid(),
-//   name: z.object({
-//     value: z.string(),
-//     label: z.string(),
-//   }),
-//   costPrice: z.coerce
-//   .number()
-//   .min(1, 'O preço de custo deve ser maior que 0')
-//   .positive('O preço de custo deve ser maior que 0'),
-//   salePrice: z.coerce
-//   .number()
-//   .min(1, 'O preço de venda deve ser maior que 0')
-//   .positive('O preço de venda deve ser maior que 0'),
-//  quantity: z.coerce
-//   .number()
-//   .min(1, 'A quantidade deve ser maior')
-//   .positive('A quantidade deve ser maior que 0'),
-//   type: z.enum(['Entrada', 'Saída'], {
-//     errorMap: () => ({
-//       message: 'O tipo de movimentação deve ser "entrada" ou "saida".',
-//     }),
-//   }),
-// });
-
-
 export const stockEntryFormSchema = z.object({
   name: z.object({
-    value: z.string({message: "Selecione o produto"}),
+    value: z.string({message: "Selecione o produto"}).min(1, {message: "Selecione o produto"}),
     label: z.string({message: "Selecione o produto"}),
   }),
   costPrice: z.coerce
