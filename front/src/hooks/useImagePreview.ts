@@ -6,7 +6,7 @@ export const useImagePreview = () => {
 
   const { setValue } = useFormContext();
 
-  const handleImageChange = async (
+  const handleImageChange: (event: React.ChangeEvent<HTMLInputElement>) => Promise<void> = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = event.target.files?.[0];

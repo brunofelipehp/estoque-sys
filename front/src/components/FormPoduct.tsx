@@ -21,14 +21,15 @@ export const FormProduct = () => {
   const onSubmit = async (data: ProductSchema) => {
     const id = uuidv4();
 
-    const imageUrl = `/uploads/${data.image}`;
+    const imageUrl = data.image;
 
-    const { name, supplier, category, description } = data;
+    const { name, category, description, color, size } = data;
 
     const newProduct = {
       id,
       name,
-      supplier,
+      color,
+      size,
       category,
       description,
       image: imageUrl,
@@ -46,14 +47,14 @@ export const FormProduct = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="w-3/6 flex flex-col gap-4 mb-20"
       >
-        <h2 className="text-center text-4xl font-bold">Cadastro de Produto</h2>
+        <h2 className=" text-4xl font-bold">Cadastro de Produto</h2>
 
         <div className="max-h-fit max-w-fit">
           <label
             htmlFor="input-image"
-            className="w-[400px] aspect-[16/9] flex items-center  rounded-sm   justify-center border-[2px] border-dashed border-zinc-400  hover:border-violetPrimer cursor-pointer text-zinc-400 hover:text-violetPrimer transition-all ease-in-out duration-300"
+            className="w-[600px] h-[250px] aspect-[16/9] flex items-center  rounded-sm   justify-center border-[2px] border-dashed border-zinc-400  hover:border-violetPrimer cursor-pointer text-zinc-400 hover:text-violetPrimer transition-all ease-in-out duration-300"
           >
-            <span className="">
+            <span className="h-full w-full flex justify-center">
               {previewImage ? (
                 <img
                   src={previewImage}
@@ -89,17 +90,19 @@ export const FormProduct = () => {
           />
           {errors.name && (<span className='text-red-500 text-sm'>{errors.name.message}</span>)}
         </div>
+
         <div>
-          <label className="block" htmlFor='supplier'>Fornecedor</label>
+          <label className="block" htmlFor='name'>Cor</label>
           <Input
             type="text"
-            id='supplier'
-            className="border border-zinc-300 w-3/4 p-4 rounded outline-indigo-400"
-            placeholder="Fornecedor"
-            {...register('supplier')}
+            id='name'
+            className="border border-zinc-300 w-full p-4 rounded outline-indigo-400"
+            placeholder="Cor"
+            {...register('color')}
           />
-          {errors.supplier && (<span className='text-red-500 text-sm'>{errors.supplier.message}</span>)}
+          {errors.color && (<span className='text-red-500 text-sm'>{errors.color.message}</span>)}
         </div>
+
         <div>
           <label className="block" htmlFor='category'>Categoria</label>
           <Input
@@ -110,6 +113,18 @@ export const FormProduct = () => {
             {...register('category')}
           />
           {errors.category && (<span className='text-red-500 text-sm'>{errors.category.message}</span>)}
+        </div>
+
+        <div>
+          <label className="block" htmlFor='category'>Tamanho</label>
+          <Input
+            type="text"
+            id='category'
+            className="border border-zinc-300 w-2/3 p-4 rounded outline-indigo-400"
+            placeholder="Tamanho"
+            {...register('size')}
+          />
+          {errors.size && (<span className='text-red-500 text-sm'>{errors.size.message}</span>)}
         </div>
 
         <div>

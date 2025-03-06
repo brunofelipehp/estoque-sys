@@ -7,7 +7,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { useFilterProductTable } from '@/hooks/useFilterProductTable';
-import { stockEntriesProps } from '@/schemas/StockEntrySchema';
+import { StockMovementsProps } from '@/schemas/StockEntrySchema';
 import { FiPlusCircle } from "react-icons/fi";
 import { Dashboard } from './Dashboard';
 
@@ -17,7 +17,10 @@ import { Link } from 'react-router-dom';
 
 
 export function Main() {
-  const { products, loadingProduct } = useFilterProductTable();
+
+  const page = 1
+  const limit = 5;
+  const { products, loadingProduct } = useFilterProductTable(page, limit);
 
   return (
     <div className="flex flex-col w-full bg-zinc-50 mt-32">
@@ -36,13 +39,13 @@ export function Main() {
         <div className="p-2 border rounded-lg">
           <Table>
             <TableHeader>
-              <TableRow>
-                <TableHead>Nome</TableHead>
-                <TableHead>Fornecdor</TableHead>
-                <TableHead>Custo Venda</TableHead>
-                <TableHead>Custo Comprar</TableHead>
-                <TableHead>Quantidade</TableHead>
-                <TableHead>Tipo</TableHead>
+              <TableRow >
+                <TableHead className='text-center'>Nome</TableHead>
+                <TableHead className='text-center'>Fornecdor</TableHead>
+                <TableHead className='text-center'>Preço unidade</TableHead>
+                <TableHead className='text-center'>Quantidade</TableHead>
+                <TableHead className='text-center'>Cores</TableHead>
+                <TableHead className='text-center'>Movimentação</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody >
@@ -57,15 +60,15 @@ export function Main() {
                 (
                   <>
                     {products ? (
-                      products.map((products: stockEntriesProps) => {
+                      products.map((product: StockMovementsProps) => {
                         return (
-                          <TableRow key={products.id}>
-                            <TableCell>{products.productName}</TableCell>
-                            <TableCell>{products.supplier}</TableCell>
-                            <TableCell>{products.costPrice}</TableCell>
-                            <TableCell>{products.salePrice}</TableCell>
-                            <TableCell>{products.quantity}</TableCell>
-                            <TableCell>{products.type}</TableCell>
+                          <TableRow key={product.id} className='text-center'>
+                            <TableCell>{product.product.name}</TableCell>
+                            <TableCell>{product.supplier}</TableCell>
+                            <TableCell>{product.price}</TableCell>
+                            <TableCell>{product.quantity}</TableCell>
+                            <TableCell>{product.product.color}</TableCell>
+                            <TableCell>{product.type == 'IN' ? "Entrada" : "Saída"}</TableCell>
                           </TableRow>
                         );
                       })
@@ -83,8 +86,8 @@ export function Main() {
           </Table>
 
         </div>
-
+        {/* <PaginationForm page={newPage} pages={totalPages} /> */}
       </div>
-    </div>
+    </div >
   );
 }

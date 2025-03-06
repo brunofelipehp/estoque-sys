@@ -1,14 +1,17 @@
-import type { ProductSchema } from '@/schemas/ProductSchema';
-import type { SchemaStockEntry } from '@/schemas/StockEntrySchema';
+import type { getProductSchema, ProductSchema } from '@/schemas/ProductSchema';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { toast } from 'sonner';
 
-const fetchAllProducts = async () => {
+const fetchAllProducts = async (limit?: number) => {
   try {
-    const response = await axios.get('http://localhost:3001/products');
-    const data = response.data.map((product: SchemaStockEntry) => ({
-      value: product.name.value,
+    const response = await axios.get('http://localhost:7000/products', {
+      params: {
+        _limit: limit,
+      }
+    });
+    const data = response.data.map((product: getProductSchema) => ({
+      value: product.id,
       label: product.name,
     }));
     return data;
@@ -18,12 +21,12 @@ const fetchAllProducts = async () => {
 };
 
 const fetchProduct = async (newProduct: ProductSchema) => {
-  await axios.post('http://localhost:3001/products', newProduct);
+  await axios.post('http://localhost:7000/product', newProduct);
 };
 
 const fetchProductsById = async (id: string) => {
   try {
-    const response = await axios.get(`http://localhost:3001/products/${id}`);
+    const response = await axios.get(`http://localhost:7000/products/${id}`);
     const data = response.data;
     return data;
   } catch (error) {
@@ -31,8 +34,8 @@ const fetchProductsById = async (id: string) => {
   }
 };
 
-export const useFetchProducts = () => {
-  return useQuery({ queryKey: ['products'], queryFn: fetchAllProducts });
+export const useFetchProducts = (limit?: number) => {
+   return useQuery({ queryKey: ['products', limit], queryFn: () => fetchAllProducts(limit) });
 };
 
 export const useFetchPostProduct = () => {

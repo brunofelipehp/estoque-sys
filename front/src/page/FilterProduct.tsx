@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { Header } from '../components/Header';
 
 import { Loading } from '@/components/Loading';
+import { PaginationForm } from '@/components/PaginationForm';
 import { Input } from '@/components/ui/input';
 import {
   Select,
@@ -19,11 +20,12 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { useFilterProductTable } from '@/hooks/useFilterProductTable';
-import { stockEntriesProps } from '@/schemas/StockEntrySchema';
+import { StockMovementsProps } from '@/schemas/StockEntrySchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { IoSearchOutline } from 'react-icons/io5';
 import { MdLibraryBooks } from 'react-icons/md';
+import { useSearchParams } from 'react-router-dom';
 import { z } from 'zod';
 import { Sidebar } from '../components/Sidebar';
 
@@ -31,7 +33,7 @@ export const filterProductFormSchema = z
   .object({
     name: z.string().optional(),
     type: z
-      .enum(['Entrada', 'Saída'], {
+      .enum(['IN', 'OUT'], {
         errorMap: () => ({
           message: 'O tipo de movimentação deve ser "entrada" ou "saida".',
         }),
@@ -45,8 +47,20 @@ export const filterProductFormSchema = z
 
 type FilterProducts = z.infer<typeof filterProductFormSchema>;
 
+
+
+
 export const FilterProduct = () => {
-  const { filterProductTable, products, loadingProduct, loadingFilter } = useFilterProductTable();
+  const limit = 10;
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
+
+  const productName = searchParams.get('productName') ? String(searchParams.get('productName')) : '';
+  const type = searchParams.get('type') ? String(searchParams.get('type')) : '';
+
+  const { products, loadingProduct, totalPages } = useFilterProductTable(page, limit, productName, type);
 
 
   const { register, handleSubmit, setValue, } = useForm<FilterProducts>({
@@ -57,12 +71,15 @@ export const FilterProduct = () => {
   const searchProduct = async (data: FilterProducts) => {
     const { name, type } = data;
 
-    if (!name && !type) {
-      console.log("Preencha ao menos um campo para buscar.");
-      return;
-    }
+    setSearchParams(params => {
+      params.set('productName', String(name))
+      return params
+    })
 
-    await filterProductTable({ name: name || '', type: type || '' });
+    setSearchParams(params => {
+      params.set('type', String(type))
+      return params
+    })
 
   };
 
@@ -80,7 +97,7 @@ export const FilterProduct = () => {
               <Input placeholder="Nome do Produto" {...register('name')} />
 
               <Select
-                onValueChange={(value: 'Entrada' | 'Saída') =>
+                onValueChange={(value: 'IN' | 'OUT') =>
                   setValue('type', value)
                 }
               >
@@ -88,8 +105,8 @@ export const FilterProduct = () => {
                   <SelectValue placeholder="Selecione o tipo" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Entrada">Entrada</SelectItem>
-                  <SelectItem value="Saída">Saída</SelectItem>
+                  <SelectItem value="IN">Entrada</SelectItem>
+                  <SelectItem value="OUT">Saída</SelectItem>
                 </SelectContent>
               </Select>
               <Button
@@ -105,16 +122,16 @@ export const FilterProduct = () => {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Nome</TableHead>
-                  <TableHead>Fornecdor</TableHead>
-                  <TableHead>Custo Venda</TableHead>
-                  <TableHead>Custo Comprar</TableHead>
-                  <TableHead>Quantidade</TableHead>
-                  <TableHead>Tipo</TableHead>
+                  <TableHead className='text-center'>Nome</TableHead>
+                  <TableHead className='text-center'>Fornecdor</TableHead>
+                  <TableHead className='text-center'>Preço unidade</TableHead>
+                  <TableHead className='text-center'>Quantidade</TableHead>
+                  <TableHead className='text-center'>Cores</TableHead>
+                  <TableHead className='text-center'>Movimentação</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {loadingProduct || loadingFilter ?
+                {loadingProduct ?
                   <TableRow>
                     <TableCell colSpan={6} className='relative'>
                       <Loading />
@@ -123,15 +140,15 @@ export const FilterProduct = () => {
                   :
                   <>
                     {products && products.length > 0 ? (
-                      products.map((product: stockEntriesProps) => {
+                      products.map((product: StockMovementsProps) => {
                         return (
-                          <TableRow key={product.id}>
-                            <TableCell>{product.productName}</TableCell>
+                          <TableRow key={product.id} className='text-center'>
+                            <TableCell>{product.product.name}</TableCell>
                             <TableCell>{product.supplier}</TableCell>
-                            <TableCell>{product.costPrice}</TableCell>
-                            <TableCell>{product.salePrice}</TableCell>
+                            <TableCell>{product.price}</TableCell>
                             <TableCell>{product.quantity}</TableCell>
-                            <TableCell>{product.type}</TableCell>
+                            <TableCell>{product.product.color}</TableCell>
+                            <TableCell>{product.type == 'IN' ? "Entrada" : "Saída"}</TableCell>
                             <TableCell>
                               <a href="" className='text-violetPrimer'>
                                 <MdLibraryBooks size={24} />
@@ -150,7 +167,9 @@ export const FilterProduct = () => {
 
               </TableBody>
             </Table>
+
           </div>
+          <PaginationForm page={page} pages={totalPages} />
         </div>
       </div>
     </>

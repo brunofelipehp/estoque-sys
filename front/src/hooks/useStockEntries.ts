@@ -1,31 +1,31 @@
 import type { stockEntriesProps } from '@/schemas/StockEntrySchema';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { toast } from 'sonner';
 
-const fetchAllStockEntries = async () => {
-  await axios.get('http://localhost:3001/products');
-};
+// const fetchAllStockEntries = async () => {
+//   await axios.get('http://localhost:7000/products');
+// };
 
 const fetchStockEntryCreate = async (data: stockEntriesProps) => {
- await axios.post('http://localhost:3001/entries', data);
+ await axios.post('http://localhost:7000/movement', data);
 
   return data;
 };
 
-const pricesCost = async () =>  {
-  const response = await axios.get<stockEntriesProps[]>('http://localhost:3001/entries');
+// const pricesCost = async () =>  {
+//   const response = await axios.get<stockEntriesProps[]>('http://localhost:7000/movements');
 
 
-  return response
-}
+//   return response
+// }
 
-export const useFetchStockEntries = () => {
-  return useQuery({
-    queryKey: ['stockEntries'],
-    queryFn: fetchAllStockEntries,
-  });
-};
+// export const useFetchStockEntries = () => {
+//   return useQuery({
+//     queryKey: ['stockEntries'],
+//     queryFn: fetchAllStockEntries,
+//   });
+// };
 
 export const useFetchStockEntry = () => {
   const queryClient = useQueryClient();
@@ -49,7 +49,7 @@ export const useFetchStockEntry = () => {
     onError: () => {
       
       toast.dismiss()
-      toast.success('Erro ao registra entrada de  produto !!!')
+      toast.error('Erro ao registra entrada de  produto !!!')
      },
     
   });
@@ -58,22 +58,22 @@ export const useFetchStockEntry = () => {
 
 export const usePricesEntries = () => {
 
-const {data} = useQuery({queryKey: ['stockEntries'], queryFn: pricesCost})
+//const {data} = useQuery({queryKey: ['stockEntries'], queryFn: pricesCost})
 
 
-  const productEntries = data?.data.reduce((totalPrice: number, product: stockEntriesProps) => {
-    return totalPrice + product.totalCost
-  }, 0)
+  // const productEntries = data?.data.reduce((totalPrice: number, product: stockEntriesProps) => {
+  //   return totalPrice + product.totalCost
+  // }, 0)
 
-  const productOut = data?.data.reduce((totalPrice: number, product: stockEntriesProps) => {
-    return totalPrice + product.totalSale
-  }, 0)
+  // const productOut = data?.data.reduce((totalPrice: number, product: stockEntriesProps) => {
+  //   return totalPrice + product.totalSale
+  // }, 0)
 
 
-  const totalPrice = productOut && productEntries ? productOut - productEntries : 0;
+  // const totalPrice = productOut && productEntries ? productOut - productEntries : 0;
 
   
   
 
-  return {productEntries, productOut, totalPrice}
+  //return {productEntries, productOut, totalPrice}
 }

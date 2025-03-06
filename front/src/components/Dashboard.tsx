@@ -1,11 +1,10 @@
-import { usePricesEntries } from '@/hooks/useStockEntries';
 import { FaMoneyBillTransfer, FaMoneyBillTrendUp } from 'react-icons/fa6';
 import { MdOutlineWallet } from 'react-icons/md';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 
 export function Dashboard() {
 
-  const { productEntries, productOut, totalPrice } = usePricesEntries();
+  // const { productEntries, productOut, totalPrice } = usePricesEntries();
 
   return (
 
@@ -19,7 +18,7 @@ export function Dashboard() {
         </CardHeader>
         <CardContent className="flex gap-2">
           <span>R$</span>
-          <span>{productEntries}</span>
+          <span>0</span>
         </CardContent>
       </Card>
 
@@ -32,7 +31,7 @@ export function Dashboard() {
         </CardHeader>
         <CardContent className="flex gap-2">
           <span>R$</span>
-          <span>{productOut}</span>
+          <span>0</span>
         </CardContent>
       </Card>
       <Card className="w-60 h-40">
@@ -44,7 +43,7 @@ export function Dashboard() {
         </CardHeader>
         <CardContent className="flex gap-2">
           <span>R$</span>
-          <span>{totalPrice}</span>
+          <span>0</span>
         </CardContent>
       </Card>
     </div>

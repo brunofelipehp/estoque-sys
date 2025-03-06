@@ -1,48 +1,37 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-const fetchAllEntriesProducts = async() => {
-      const response = await axios.get('http://localhost:3001/entries');
 
-      const data = response.data
-
-     return data;
-
-}
-
-const fetchSearchProduct = async (nameSearch: string , type: string) => {
-  const response = await axios.get('http://localhost:3001/entries');
-
-
-  if (nameSearch != undefined) {
-    const filterProd = response.data.filter(
-      (product: { productName: string; type: string }) => {
-        const matchesName = nameSearch
-          ? product.productName.toLowerCase().includes(nameSearch.toLowerCase())
-          : true;
-        const matchesType = type ? product.type === type : true;
-        return matchesName && matchesType;
-      }
-    );
-    return filterProd;
-
-  } 
-};
-
-export const useFilterProductTable = () => {
-  const queryClient = useQueryClient();
-
-  const {data: products, isLoading: loadingProduct} =  useQuery({queryKey: ['filterProduct'], queryFn: fetchAllEntriesProducts})
-
-  const {mutateAsync: filterProductTable, isPending: loadingFilter } = useMutation({
-    mutationFn: ({ name, type }: { name: string; type: string }) =>
-      fetchSearchProduct(name, type),
-    onSuccess: (filteredProducts) => {
-      queryClient.setQueryData(['filterProduct'], filteredProducts);
-    },
+const fetchSearchProduct = async (page?: number, limit?: number, productName?: string , type?: string,) => {
+  const response = await axios.get('http://localhost:7000/movements',{
+    params: {
+      limit,
+      page,
+      productName,
+      type
+    }
   });
 
-  return {products, filterProductTable, loadingProduct, loadingFilter}
+
+  const {movements, totalPages} = response.data
+ 
+  
+    return {movements, totalPages}
+
+  } 
+
+
+export const useFilterProductTable = (page?: number, limit?: number, productName?: string, type?: string ) => {
+  
+
+  const {data, isLoading: loadingProduct} =  useQuery({queryKey: ['filterProduct', limit, page, productName, type], queryFn: () => fetchSearchProduct(page, limit, productName, type)})
+
+  const products = data?.movements || []
+  const totalPages = data?.totalPages || 1
+   
+  return {products, loadingProduct, totalPages}
+
+
 };
 
 

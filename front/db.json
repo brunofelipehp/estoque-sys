@@ -196,18 +196,7 @@
       "totalCost": 4,
       "totalSale": 0
     },
-    {
-      "id": "918e6436-ccf2-41cf-8847-22d5dd016d0b",
-      "productId": "2efb47ce-3a39-42b9-bbe6-e5cf5f0db462",
-      "productName": "Xbox serie X",
-      "category": "Eletroeletrônico",
-      "supplier": "Microsoft",
-      "costPrice": "3",
-      "salePrice": "4",
-      "quantity": "2",
-      "totalCost": 0,
-      "totalSale": 8
-    },
+
     {
       "id": "a250a9ed-f0c0-490c-802a-0cba12b7322b",
       "productId": "8736980b-0eb3-4d8f-ae3c-2d7493e2aa13",
@@ -273,54 +262,7 @@
       "totalCost": 0,
       "totalSale": 160
     },
-    {
-      "id": "080cd0f5-ca44-4c82-b05d-7300faf88e26",
-      "productId": "8736980b-0eb3-4d8f-ae3c-2d7493e2aa13",
-      "productName": "Chinelo Havainas",
-      "category": "Calçados",
-      "supplier": "eiouei",
-      "costPrice": "",
-      "salePrice": "",
-      "quantity": "",
-      "totalCost": 0,
-      "totalSale": 0
-    },
-    {
-      "id": "60452fe5-c2ba-4faa-be4b-398ea2b80d04",
-      "productId": "8736980b-0eb3-4d8f-ae3c-2d7493e2aa13",
-      "productName": "Chinelo Havainas",
-      "category": "Calçados",
-      "supplier": "eiouei",
-      "costPrice": "",
-      "salePrice": "",
-      "quantity": "",
-      "totalCost": 0,
-      "totalSale": 0
-    },
-    {
-      "id": "fa650e72-0979-4d5a-b068-a7cc85edcace",
-      "productId": "2efb47ce-3a39-42b9-bbe6-e5cf5f0db462",
-      "productName": "Xbox serie X",
-      "category": "Eletroeletrônico",
-      "supplier": "Microsoft",
-      "costPrice": "",
-      "salePrice": "",
-      "quantity": "",
-      "totalCost": 0,
-      "totalSale": 0
-    },
-    {
-      "id": "b5fec5e1-d0f1-4831-a19e-3eeb70743ff7",
-      "productId": "8736980b-0eb3-4d8f-ae3c-2d7493e2aa13",
-      "productName": "Chinelo Havainas",
-      "category": "Calçados",
-      "supplier": "eiouei",
-      "costPrice": "",
-      "salePrice": "",
-      "quantity": "",
-      "totalCost": 0,
-      "totalSale": 0
-    },
+
     {
       "id": "19265011-0261-42fa-9db4-7606607179b2",
       "productId": "8736980b-0eb3-4d8f-ae3c-2d7493e2aa13",
@@ -334,52 +276,7 @@
       "totalCost": 0,
       "totalSale": 0
     },
-    {
-      "id": "deb87679-3423-4a2e-b7e4-278a5242c852",
-      "productId": "8736980b-0eb3-4d8f-ae3c-2d7493e2aa13",
-      "productName": "Chinelo Havainas",
-      "category": "Calçados",
-      "supplier": "eiouei",
-      "costPrice": "",
-      "salePrice": "",
-      "quantity": "",
-      "totalCost": 0,
-      "totalSale": 0
-    },
-    {
-      "id": "cb41cf43-bcba-4e13-b73d-b1197bad4a4b",
-      "productId": "2efb47ce-3a39-42b9-bbe6-e5cf5f0db462",
-      "productName": "Xbox serie X",
-      "category": "Eletroeletrônico",
-      "supplier": "Microsoft",
-      "quantity": "",
-      "totalCost": 0,
-      "totalSale": null
-    },
-    {
-      "id": "67e281ab-e5d9-4b66-9912-d489843da515",
-      "productId": "8736980b-0eb3-4d8f-ae3c-2d7493e2aa13",
-      "productName": "Chinelo Havainas",
-      "category": "Calçados",
-      "supplier": "eiouei",
-      "costPrice": 0,
-      "salePrice": 0,
-      "quantity": "",
-      "totalCost": 0,
-      "totalSale": 0
-    },
-    {
-      "id": "7edfa354-0b62-402a-8397-fd32daba40b9",
-      "productId": "986262c5-34c4-46f6-ab2b-c4530fa9cccc",
-      "productName": "Smart Tv LG",
-      "category": "Eletroeletrônico",
-      "supplier": "LG",
-      "costPrice": 0,
-      "salePrice": 0,
-      "quantity": "",
-      "totalCost": 0,
-      "totalSale": 0
-    },
+    
     {
       "id": "093b6387-b053-42e6-b4d7-100e5fc3113f",
       "productId": "8736980b-0eb3-4d8f-ae3c-2d7493e2aa13",
@@ -393,18 +290,7 @@
       "totalCost": 30,
       "totalSale": 0
     },
-    {
-      "id": "b0d72854-ce74-4ecd-b66b-6f2d12a26d51",
-      "productId": "2efb47ce-3a39-42b9-bbe6-e5cf5f0db462",
-      "productName": "Xbox serie X",
-      "category": "Eletroeletrônico",
-      "supplier": "Microsoft",
-      "costPrice": 0,
-      "salePrice": 0,
-      "quantity": "",
-      "totalCost": 0,
-      "totalSale": 0
-    },
+
     {
       "id": "a2002396-936b-4075-a91c-a59a1d98ab35",
       "productId": "986262c5-34c4-46f6-ab2b-c4530fa9cccc",
@@ -431,78 +317,8 @@
       "totalCost": 3,
       "totalSale": 0
     },
-    {
-      "id": "4c931aa1-3fbb-4ea0-8f21-c5bd0c23836b",
-      "productId": "986262c5-34c4-46f6-ab2b-c4530fa9cccc",
-      "productName": "Smart Tv LG",
-      "category": "Eletroeletrônico",
-      "supplier": "LG",
-      "costPrice": 0,
-      "salePrice": 0,
-      "quantity": "",
-      "totalCost": 0,
-      "totalSale": 0
-    },
-    {
-      "id": "239b36ac-8677-4364-9559-aaf3fad3067e",
-      "productId": "986262c5-34c4-46f6-ab2b-c4530fa9cccc",
-      "productName": "Smart Tv LG",
-      "category": "Eletroeletrônico",
-      "supplier": "LG",
-      "costPrice": 0,
-      "salePrice": 0,
-      "quantity": "",
-      "totalCost": 0,
-      "totalSale": 0
-    },
-    {
-      "id": "78000d61-608c-4054-9860-727e2264a7c2",
-      "productId": "8736980b-0eb3-4d8f-ae3c-2d7493e2aa13",
-      "productName": "Chinelo Havainas",
-      "category": "Calçados",
-      "supplier": "eiouei",
-      "costPrice": 0,
-      "salePrice": 0,
-      "quantity": "",
-      "totalCost": 0,
-      "totalSale": 0
-    },
-    {
-      "id": "7a423beb-d732-46cb-bb30-061599afa525",
-      "productId": "8736980b-0eb3-4d8f-ae3c-2d7493e2aa13",
-      "productName": "Chinelo Havainas",
-      "category": "Calçados",
-      "supplier": "eiouei",
-      "costPrice": null,
-      "salePrice": 0,
-      "quantity": 0,
-      "totalCost": 0,
-      "totalSale": 0
-    },
-    {
-      "id": "71e6c989-42cc-4b27-b895-8f7f663d42af",
-      "productId": "986262c5-34c4-46f6-ab2b-c4530fa9cccc",
-      "productName": "Smart Tv LG",
-      "category": "Eletroeletrônico",
-      "supplier": "LG",
-      "costPrice": null,
-      "salePrice": 0,
-      "quantity": 0,
-      "totalCost": 0,
-      "totalSale": 0
-    },
-    {
-      "id": "52532cff-48fd-4a1c-9f9d-4ceea8a2ebe1",
-      "productId": "8736980b-0eb3-4d8f-ae3c-2d7493e2aa13",
-      "productName": "Chinelo Havainas",
-      "category": "Calçados",
-      "supplier": "eiouei",
-      "costPrice": 0,
-      "salePrice": 0,
-      "quantity": 0,
-      "totalCost": 0,
-      "totalSale": 0
-    },
+    
+    
     {
       "id": "83536876-322c-4251-9bf2-0c7ebfbfa5b7",
       "productId": "986262c5-34c4-46f6-ab2b-c4530fa9cccc",
@@ -542,17 +358,7 @@
       "totalCost": 10,
       "totalSale": 0
     },
-    {
-      "id": "a82a817e-f840-4dc3-923f-cdee0d0fbf5c",
-      "productId": "",
-      "productName": "",
-      "costPrice": 1,
-      "salePrice": 1,
-      "quantity": 1,
-      "type": "Entrada",
-      "totalCost": 1,
-      "totalSale": 0
-    },
+    
     {
       "id": "51c67f6a-890a-49db-b2f8-08e0241f6125",
       "productId": "986262c5-34c4-46f6-ab2b-c4530fa9cccc",
@@ -567,17 +373,6 @@
       "totalSale": 0
     },
     {
-      "id": "f838483d-0360-4b8d-9ea9-6abb6cc13123",
-      "productId": "",
-      "productName": "",
-      "costPrice": 3,
-      "salePrice": 3,
-      "quantity": 3,
-      "type": "Entrada",
-      "totalCost": 9,
-      "totalSale": 0
-    },
-    {
       "id": "56e6cd38-cb88-48b1-91b9-8a32b51ba95c",
       "productId": "8736980b-0eb3-4d8f-ae3c-2d7493e2aa13",
       "productName": "Chinelo Havainas",
@@ -588,17 +383,6 @@
       "quantity": 5,
       "type": "Entrada",
       "totalCost": 25,
-      "totalSale": 0
-    },
-    {
-      "id": "0504c5c4-12b4-4b4e-a396-bb851d4ab3f2",
-      "productId": "",
-      "productName": "Selecione o produto...",
-      "costPrice": 3,
-      "salePrice": 2,
-      "quantity": 3,
-      "type": "Entrada",
-      "totalCost": 9,
       "totalSale": 0
     },
     {
@@ -626,39 +410,6 @@
       "type": "Entrada",
       "totalCost": 2,
       "totalSale": 0
-    },
-    {
-      "id": "06e7b83a-9bc0-40bb-ba3b-e2b08f2f4123",
-      "productId": "",
-      "productName": "Selecione o produto...",
-      "costPrice": 5,
-      "salePrice": 8,
-      "quantity": 7,
-      "type": "Entrada",
-      "totalCost": 35,
-      "totalSale": 0
-    },
-    {
-      "id": "322b06f1-6fbf-4b0b-bd38-6acdcbad9190",
-      "productId": "",
-      "productName": "",
-      "costPrice": 2,
-      "salePrice": 1,
-      "quantity": 3,
-      "type": "Entrada",
-      "totalCost": 6,
-      "totalSale": 0
-    },
-    {
-      "id": "7612e152-b2b5-4ec8-8ea3-769ff5e46dfb",
-      "productId": "",
-      "productName": "",
-      "costPrice": 3,
-      "salePrice": 2,
-      "quantity": 3,
-      "type": "Saída",
-      "totalCost": 0,
-      "totalSale": 6
     },
     {
       "id": "a7893607-538c-4df8-87c9-744759b2cd9a",
@@ -893,6 +644,84 @@
       "type": "Saída",
       "totalCost": 0,
       "totalSale": 25
+    },
+    {
+      "id": "df5929af-0517-46fd-abd6-876f2f86c8d5",
+      "productId": "986262c5-34c4-46f6-ab2b-c4530fa9cccc",
+      "productName": "Smart Tv LG",
+      "category": "Eletroeletrônico",
+      "supplier": "LG",
+      "costPrice": 3,
+      "salePrice": 3,
+      "quantity": 8,
+      "type": "Entrada",
+      "totalCost": 24,
+      "totalSale": 0
+    },
+    {
+      "id": "4c6c2d60-300a-4557-a87d-65c0f95278cb",
+      "productId": "986262c5-34c4-46f6-ab2b-c4530fa9cccc",
+      "productName": "Smart Tv LG",
+      "category": "Eletroeletrônico",
+      "supplier": "LG",
+      "costPrice": 15,
+      "salePrice": 24,
+      "quantity": 5,
+      "type": "Entrada",
+      "totalCost": 75,
+      "totalSale": 0
+    },
+    {
+      "id": "63c163ef-8b7e-4efd-bc3b-6cbc6d0e8ccb",
+      "productId": "8736980b-0eb3-4d8f-ae3c-2d7493e2aa13",
+      "productName": "Chinelo Havainas",
+      "category": "Calçados",
+      "supplier": "eiouei",
+      "costPrice": 3,
+      "salePrice": 17,
+      "quantity": 10,
+      "type": "Entrada",
+      "totalCost": 30,
+      "totalSale": 0
+    },
+    {
+      "id": "ea515b8f-080d-445b-bd10-e07f3ecfbb5d",
+      "productId": "8736980b-0eb3-4d8f-ae3c-2d7493e2aa13",
+      "productName": "Chinelo Havainas",
+      "category": "Calçados",
+      "supplier": "eiouei",
+      "costPrice": 8,
+      "salePrice": 18,
+      "quantity": 20,
+      "type": "Entrada",
+      "totalCost": 160,
+      "totalSale": 0
+    },
+    {
+      "id": "549f207c-0c26-457b-b7c7-6a7fd986f571",
+      "productId": "8736980b-0eb3-4d8f-ae3c-2d7493e2aa13",
+      "productName": "Chinelo Havainas",
+      "category": "Calçados",
+      "supplier": "eiouei",
+      "costPrice": 4,
+      "salePrice": 10,
+      "quantity": 14,
+      "type": "Entrada",
+      "totalCost": 56,
+      "totalSale": 0
+    },
+    {
+      "id": "6ee78c49-ce3c-4815-be6b-79e8ab34bddd",
+      "productId": "8736980b-0eb3-4d8f-ae3c-2d7493e2aa13",
+      "productName": "Chinelo Havainas",
+      "category": "Calçados",
+      "supplier": "eiouei",
+      "costPrice": 3,
+      "salePrice": 8,
+      "quantity": 5,
+      "type": "Entrada",
+      "totalCost": 15,
+      "totalSale": 0
     }
   ]
 }

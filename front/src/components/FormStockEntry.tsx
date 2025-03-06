@@ -1,6 +1,6 @@
 import { Controller, useForm } from 'react-hook-form';
 
-import { useFetchProductById, useFetchProducts } from '@/hooks/useProducts';
+import { useFetchProducts } from '@/hooks/useProducts';
 import { useFetchStockEntry } from '@/hooks/useStockEntries';
 
 import Select from 'react-select';
@@ -23,7 +23,6 @@ import {
 
 import { stylesFormSelectProduct } from '@/lib/StylesFormSelect';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { v4 as uuidv4 } from 'uuid';
 
 
 export const FormStockEntry = () => {
@@ -32,59 +31,34 @@ export const FormStockEntry = () => {
       resolver: zodResolver(stockEntryFormSchema),
       defaultValues: {
         name: { value: '', label: 'Selecione o produto...' },
-        costPrice: 0,
-        salePrice: 0,
+        price: 0,
         quantity: 0,
         type: undefined,
       },
     });
 
-  const { data } = useFetchProducts();
-  const { mutateAsync: StockEntryById } = useFetchProductById();
-
+  const { data: productSelect } = useFetchProducts();
   const { mutateAsync: postStockEntry } = useFetchStockEntry();
 
 
   const onSubmit = async (data: SchemaStockEntry) => {
     const productId = data.name.value;
 
-    const stockEntryId = uuidv4();
-
-    const productSelected = await StockEntryById(productId);
-
-    if (productSelected) {
-      const { category, supplier } = productSelected;
+    if (productId) {
 
       const type = watch('type')
 
-      console.log(type);
-
-      let totalCost = 0;
-      let totalSale = 0;
-
-      if (type === 'Entrada') {
-
-        totalCost = data.costPrice * data.quantity;
-
-      } else {
-
-        totalSale = data.salePrice * data.quantity;
-
-      }
 
       const productEntry: stockEntriesProps = {
-        id: stockEntryId,
         productId,
-        productName: data.name.label,
-        category,
-        supplier,
-        costPrice: data.costPrice,
-        salePrice: data.salePrice,
+        price: data.price,
+        supplier: data.supplier,
         quantity: data.quantity,
         type,
-        totalCost,
-        totalSale
       };
+
+      console.log(productEntry);
+
 
       await postStockEntry(productEntry);
 
@@ -108,7 +82,7 @@ export const FormStockEntry = () => {
           render={({ field }) => (
             <Select
               {...field}
-              options={data}
+              options={productSelect}
               placeholder="selecione um produto"
               styles={stylesFormSelectProduct}
             />
@@ -116,54 +90,56 @@ export const FormStockEntry = () => {
 
         />
 
-        {errors.name?.value && (<span className='text-red-700 text-sm'>{errors.name.value.message}</span>)}
+        {errors.name?.value && (<span className='text-red-500 text-sm'>{errors.name.value.message}</span>)}
+
+        <div>
+          <label className="block" htmlFor='supplier'>Fornecedor</label>
+          <Input
+            type="text"
+            id='supplier'
+            className="border border-zinc-300 w-3/4 p-4 rounded outline-indigo-400"
+            placeholder="Fornecedor"
+            {...register('supplier')}
+          />
+          {errors.supplier && (<span className='text-red-500 text-sm'>{errors.supplier.message}</span>)}
+        </div>
 
         <div className="grid grid-cols-2 w-full gap-2 ">
           <div className="">
             <label htmlFor="cost" className="block">
-              Preço de custo
+              Preço
             </label>
             <Input
               type="number"
               id='cost'
               className="border border-zinc-300 w-full  p-4 rounded outline-indigo-400"
               placeholder=""
-              {...register('costPrice', { valueAsNumber: true })}
+              {...register('price', { valueAsNumber: true })}
               defaultValue={0}
             />
-            {errors.costPrice && (<span className='text-red-700 text-sm'>{errors.costPrice.message}</span>)}
+            {errors.price && (<span className='text-red-500 text-sm'>{errors.price.message}</span>)}
           </div>
+
           <div className="">
-            <label htmlFor="sale" className="block">
-              Preço de venda
-            </label>
-            <Input
-              type="number"
-              id='sale'
-              className="border border-zinc-300 w-full p-4 rounded outline-indigo-400"
-              {...register('salePrice', { valueAsNumber: true })}
-              defaultValue={0}
-            />
-            {errors.salePrice && (<span className='text-red-700 text-sm'>{errors.salePrice.message}</span>)}
+            <div>
+              <label htmlFor="quantity">Quantidade</label>
+              <Input
+                type="number"
+                id="quantity"
+                className="border border-zinc-300 w-full p-4 rounded outline-indigo-400"
+                {...register('quantity', { valueAsNumber: true })}
+                defaultValue={0}
+              />
+              {errors.quantity && (<span className='text-red-500 text-sm'>{errors.quantity.message}</span>)}
+            </div>
           </div>
-        </div>
-        <div>
-          <label htmlFor="quantity">Quantidade</label>
-          <Input
-            type="number"
-            id="quantity"
-            className="border border-zinc-300 w-full p-4 rounded outline-indigo-400"
-            {...register('quantity', { valueAsNumber: true })}
-            defaultValue={0}
-          />
-          {errors.quantity && (<span className='text-red-700 text-sm'>{errors.quantity.message}</span>)}
         </div>
         <div>
           <label>Entrada ou Saída</label>
 
           <ShadcnSelect
             value={watch('type') || ''}
-            onValueChange={(value: 'Entrada' | 'Saída') =>
+            onValueChange={(value: 'IN' | 'OUT') =>
               setValue('type', value)
             }
           >
@@ -171,11 +147,11 @@ export const FormStockEntry = () => {
               <SelectValue placeholder="Selecione o tipo" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="Entrada">Entrada</SelectItem>
-              <SelectItem value="Saída">Saída</SelectItem>
+              <SelectItem value="IN">Entrada</SelectItem>
+              <SelectItem value="OUT">Saída</SelectItem>
             </SelectContent>
           </ShadcnSelect>
-          {errors.type && (<span className='text-red-700 text-sm'>{errors.type.message}</span>)}
+          {errors.type && (<span className='text-red-500 text-sm'>{errors.type.message}</span>)}
         </div>
         <Button type="submit" className="w-36  p-3 rounded-lg  text-white">
           Enviar
