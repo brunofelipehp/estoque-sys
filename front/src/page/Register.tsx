@@ -13,7 +13,8 @@ export const Register = () => {
     resolver: zodResolver(createProductSchema),
     defaultValues: {
       name: '',
-      supplier: '',
+      color: '',
+      size: '',
       category: '',
       description: '',
       image: undefined

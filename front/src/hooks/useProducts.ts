@@ -1,9 +1,9 @@
-import type { getProductSchema, ProductSchema } from '@/schemas/ProductSchema';
+import type { getProductSchema } from '@/schemas/ProductSchema';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { toast } from 'sonner';
 
-const fetchAllProducts = async (limit?: number) => {
+const findAllProducts = async (limit?: number) => {
   try {
     const response = await axios.get('http://localhost:7000/products', {
       params: {
@@ -20,8 +20,12 @@ const fetchAllProducts = async (limit?: number) => {
   }
 };
 
-const fetchProduct = async (newProduct: ProductSchema) => {
-  await axios.post('http://localhost:7000/product', newProduct);
+const fetchCreateProduct = async (newProduct: FormData) => {
+  await axios.post('http://localhost:7000/product', newProduct, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
 };
 
 const fetchProductsById = async (id: string) => {
@@ -35,14 +39,14 @@ const fetchProductsById = async (id: string) => {
 };
 
 export const useFetchProducts = (limit?: number) => {
-   return useQuery({ queryKey: ['products', limit], queryFn: () => fetchAllProducts(limit) });
+   return useQuery({ queryKey: ['products', limit], queryFn: () => findAllProducts(limit) });
 };
 
 export const useFetchPostProduct = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (productData: ProductSchema) => fetchProduct(productData),
+    mutationFn: (productData: FormData) => fetchCreateProduct(productData),
     onMutate: () => {
       toast.loading('Cadastrando o produto no sistema de estoque')
     },

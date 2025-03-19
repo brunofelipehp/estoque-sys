@@ -8,35 +8,26 @@ import { useImagePreview } from '@/hooks/useImagePreview';
 import { type ProductSchema } from '@/schemas/ProductSchema';
 import { useFormContext } from 'react-hook-form';
 import { IoMdCloudUpload } from 'react-icons/io';
-import { v4 as uuidv4 } from 'uuid';
 
 export const FormProduct = () => {
 
   const { register, handleSubmit, reset, formState: { errors } } = useFormContext<ProductSchema>();
 
-  const { handleImageChange, previewImage, setPreviewImage } = useImagePreview();
+  const { handleImageChange, previewImage, setPreviewImage, sendImage } = useImagePreview();
 
   const { mutateAsync: fetchProduct } = useFetchPostProduct();
 
   const onSubmit = async (data: ProductSchema) => {
-    const id = uuidv4();
 
-    const imageUrl = data.image;
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("color", data.color);
+    formData.append("size", data.size || '');
+    formData.append("category", data.category);
+    formData.append("description", data.description);
+    formData.append("image", data.image);
 
-    const { name, category, description, color, size } = data;
-
-    const newProduct = {
-      id,
-      name,
-      color,
-      size,
-      category,
-      description,
-      image: imageUrl,
-    };
-
-    await fetchProduct(newProduct);
-
+    await fetchProduct(formData);
     reset();
     setPreviewImage('')
   };
@@ -46,6 +37,7 @@ export const FormProduct = () => {
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-3/6 flex flex-col gap-4 mb-20"
+        encType="multipart/form-data"
       >
         <h2 className=" text-4xl font-bold">Cadastro de Produto</h2>
 

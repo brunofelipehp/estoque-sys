@@ -1,7 +1,7 @@
 import { Controller, useForm } from 'react-hook-form';
 
 import { useFetchProducts } from '@/hooks/useProducts';
-import { useFetchStockEntry } from '@/hooks/useStockEntries';
+import { useFetchStockMovement } from '@/hooks/useStockEntries';
 
 import Select from 'react-select';
 
@@ -38,7 +38,7 @@ export const FormStockEntry = () => {
     });
 
   const { data: productSelect } = useFetchProducts();
-  const { mutateAsync: postStockEntry } = useFetchStockEntry();
+  const { mutateAsync: postStockEntry } = useFetchStockMovement();
 
 
   const onSubmit = async (data: SchemaStockEntry) => {
@@ -69,7 +69,6 @@ export const FormStockEntry = () => {
 
   return (
     <div className="flex justify-center  mt-24 w-full">
-      {/* <AlertProduct /> */}
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-3/6 flex flex-col gap-4"

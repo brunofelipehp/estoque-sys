@@ -1,10 +1,15 @@
+import { useMovementOfProduct } from '@/hooks/useFilterProductTable';
 import { FaMoneyBillTransfer, FaMoneyBillTrendUp } from 'react-icons/fa6';
 import { MdOutlineWallet } from 'react-icons/md';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 
 export function Dashboard() {
 
-  // const { productEntries, productOut, totalPrice } = usePricesEntries();
+  const page = 1
+  //const limit = 5;
+
+  const { profit, expenses, totalProfit } = useMovementOfProduct(page);
+
 
   return (
 
@@ -18,7 +23,7 @@ export function Dashboard() {
         </CardHeader>
         <CardContent className="flex gap-2">
           <span>R$</span>
-          <span>0</span>
+          <span>{expenses}</span>
         </CardContent>
       </Card>
 
@@ -31,7 +36,7 @@ export function Dashboard() {
         </CardHeader>
         <CardContent className="flex gap-2">
           <span>R$</span>
-          <span>0</span>
+          <span>{profit}</span>
         </CardContent>
       </Card>
       <Card className="w-60 h-40">
@@ -43,7 +48,7 @@ export function Dashboard() {
         </CardHeader>
         <CardContent className="flex gap-2">
           <span>R$</span>
-          <span>0</span>
+          <span>{totalProfit}</span>
         </CardContent>
       </Card>
     </div>

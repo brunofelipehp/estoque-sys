@@ -6,7 +6,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { useFilterProductTable } from '@/hooks/useFilterProductTable';
+import { useMovementOfProduct } from '@/hooks/useFilterProductTable';
 import { StockMovementsProps } from '@/schemas/StockEntrySchema';
 import { FiPlusCircle } from "react-icons/fi";
 import { Dashboard } from './Dashboard';
@@ -20,7 +20,7 @@ export function Main() {
 
   const page = 1
   const limit = 5;
-  const { products, loadingProduct } = useFilterProductTable(page, limit);
+  const { products, loadingProduct } = useMovementOfProduct(page, limit);
 
   return (
     <div className="flex flex-col w-full bg-zinc-50 mt-32">

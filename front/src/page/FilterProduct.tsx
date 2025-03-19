@@ -19,36 +19,15 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { useFilterProductTable } from '@/hooks/useFilterProductTable';
+import { useMovementOfProduct } from '@/hooks/useFilterProductTable';
+import { filterProductFormSchema, FilterProducts } from '@/schemas/ProductSchema';
 import { StockMovementsProps } from '@/schemas/StockEntrySchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { IoSearchOutline } from 'react-icons/io5';
 import { MdLibraryBooks } from 'react-icons/md';
 import { useSearchParams } from 'react-router-dom';
-import { z } from 'zod';
 import { Sidebar } from '../components/Sidebar';
-
-export const filterProductFormSchema = z
-  .object({
-    name: z.string().optional(),
-    type: z
-      .enum(['IN', 'OUT'], {
-        errorMap: () => ({
-          message: 'O tipo de movimentação deve ser "entrada" ou "saida".',
-        }),
-      })
-      .optional(),
-  })
-  .refine((data) => data.name || data.type, {
-    message: 'Pelo menos um campo (nome ou tipo) deve ser preenchido.',
-    path: ['name', 'type'],
-  });
-
-type FilterProducts = z.infer<typeof filterProductFormSchema>;
-
-
-
 
 export const FilterProduct = () => {
   const limit = 10;
@@ -60,7 +39,7 @@ export const FilterProduct = () => {
   const productName = searchParams.get('productName') ? String(searchParams.get('productName')) : '';
   const type = searchParams.get('type') ? String(searchParams.get('type')) : '';
 
-  const { products, loadingProduct, totalPages } = useFilterProductTable(page, limit, productName, type);
+  const { products, loadingProduct, totalPages } = useMovementOfProduct(page, limit, productName, type);
 
 
   const { register, handleSubmit, setValue, } = useForm<FilterProducts>({

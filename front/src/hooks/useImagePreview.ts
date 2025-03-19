@@ -3,6 +3,7 @@ import { useFormContext } from 'react-hook-form';
 
 export const useImagePreview = () => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [sendImage, setSendImage] = useState<File>();
 
   const { setValue } = useFormContext();
 
@@ -14,9 +15,10 @@ export const useImagePreview = () => {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setPreviewImage(imageUrl);
-      setValue('image', imageUrl);
+      setValue('image', file);
+      setSendImage(file);      
     }
   };
 
-  return { previewImage, setPreviewImage, handleImageChange };
+  return { previewImage, setPreviewImage, handleImageChange, sendImage };
 };

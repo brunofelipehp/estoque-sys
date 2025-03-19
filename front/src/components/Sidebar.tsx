@@ -11,14 +11,6 @@ export function Sidebar() {
   return (
     <section
     >
-      {/* <div
-        className={`${isOpen
-          ? 'bg-backSidebar w-screen flex flex-col absolute   z-30 h-screen  gap-7 transition-all duration-200 ease-in-out'
-          : 'hidden  transition-all duration-200 ease-in-out'
-          }`}
-      >
-
-      </div> */}
       <nav
         className={`${isOpen
           ? 'bg-violetPrimer w-[13rem] flex flex-col h-screen  gap-7 transition-all duration-200 ease-in-out'

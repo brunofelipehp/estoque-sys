@@ -3,35 +3,18 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { toast } from 'sonner';
 
-// const fetchAllStockEntries = async () => {
-//   await axios.get('http://localhost:7000/products');
-// };
-
-const fetchStockEntryCreate = async (data: stockEntriesProps) => {
+const fetchStockMovementCreate = async (data: stockEntriesProps) => {
  await axios.post('http://localhost:7000/movement', data);
 
   return data;
 };
 
-// const pricesCost = async () =>  {
-//   const response = await axios.get<stockEntriesProps[]>('http://localhost:7000/movements');
 
-
-//   return response
-// }
-
-// export const useFetchStockEntries = () => {
-//   return useQuery({
-//     queryKey: ['stockEntries'],
-//     queryFn: fetchAllStockEntries,
-//   });
-// };
-
-export const useFetchStockEntry = () => {
+export const useFetchStockMovement = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: stockEntriesProps) => fetchStockEntryCreate(data),
+    mutationFn: (data: stockEntriesProps) => fetchStockMovementCreate(data),
     onMutate: () => {
       toast.loading('Registrando...')
     },
@@ -55,25 +38,3 @@ export const useFetchStockEntry = () => {
   });
   
 };
-
-export const usePricesEntries = () => {
-
-//const {data} = useQuery({queryKey: ['stockEntries'], queryFn: pricesCost})
-
-
-  // const productEntries = data?.data.reduce((totalPrice: number, product: stockEntriesProps) => {
-  //   return totalPrice + product.totalCost
-  // }, 0)
-
-  // const productOut = data?.data.reduce((totalPrice: number, product: stockEntriesProps) => {
-  //   return totalPrice + product.totalSale
-  // }, 0)
-
-
-  // const totalPrice = productOut && productEntries ? productOut - productEntries : 0;
-
-  
-  
-
-  //return {productEntries, productOut, totalPrice}
-}
