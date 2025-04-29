@@ -1,11 +1,11 @@
 import type { getProductSchema } from '@/schemas/ProductSchema';
+import api from '@/services/api';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
 import { toast } from 'sonner';
 
 const findAllProducts = async (limit?: number) => {
   try {
-    const response = await axios.get('http://localhost:7000/products', {
+    const response = await api.get('/products', {
       params: {
         _limit: limit,
       }
@@ -21,7 +21,7 @@ const findAllProducts = async (limit?: number) => {
 };
 
 const fetchCreateProduct = async (newProduct: FormData) => {
-  await axios.post('http://localhost:7000/product', newProduct, {
+  await api.post('/product', newProduct, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
@@ -30,7 +30,7 @@ const fetchCreateProduct = async (newProduct: FormData) => {
 
 const fetchProductsById = async (id: string) => {
   try {
-    const response = await axios.get(`http://localhost:7000/products/${id}`);
+    const response = await api.get(`/products/${id}`);
     const data = response.data;
     return data;
   } catch (error) {
@@ -55,8 +55,7 @@ export const useFetchPostProduct = () => {
       toast.dismiss()
       toast.success('Produto cadastrado com sucesso')
     },
-    onError: (error) => {
-      console.error('Error ao registra o produto no banco ', error);
+    onError: () => {
       toast.dismiss()
       toast.error('Erro ao cadastra o produto no sistema de estoque')
     },
@@ -73,8 +72,9 @@ export const useFetchProductById = () => {
 
       return data;
     },
-    onError: (error) => {
-      console.error('Erro ao buscar o produto ', error);
+    onError: () => {
+      toast.dismiss()
+      toast.error('Erro ao buscar o produto ');
     },
   });
 };

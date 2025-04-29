@@ -1,9 +1,9 @@
+import api from '@/services/api';
 import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 
 
 const fetchMovementOfProduct = async (page?: number, limit?: number, productName?: string , type?: string,) => {
-  const response = await axios.get('http://localhost:7000/movements',{
+  const response = await api.get('/movements',{
     params: {
       limit,
       page,

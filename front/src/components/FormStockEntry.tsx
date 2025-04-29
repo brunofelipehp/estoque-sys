@@ -42,6 +42,7 @@ export const FormStockEntry = () => {
 
 
   const onSubmit = async (data: SchemaStockEntry) => {
+
     const productId = data.name.value;
 
     if (productId) {
@@ -57,11 +58,11 @@ export const FormStockEntry = () => {
         type,
       };
 
-      console.log(productEntry);
-
-
-      await postStockEntry(productEntry);
-
+      try {
+        await postStockEntry(productEntry);
+      } catch (error) {
+        console.error("Error ao cadastrar movimentação de estoque");
+      }
       reset();
 
     }

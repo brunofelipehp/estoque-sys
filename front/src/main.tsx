@@ -10,34 +10,57 @@ import { StockEntry } from './page/StockEntry.tsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { Toaster } from 'sonner';
+import { PrivateRouter } from './components/PrivateRouter.tsx';
+import { AuthProvider } from './contexts/AuthContext.tsx';
+import { Login } from './page/Login.tsx';
+import { NotAuthorized } from './page/NotAuthorized.tsx';
 
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <App />,
+    path: '/login',
+    element: <Login />,
   },
   {
-    path: '/register',
-    element: <Register />,
+    element: <PrivateRouter allowedRoles={['ROOT', 'ADMIN', 'EDITOR', 'USER']} />, children: [
+      {
+        path: '/',
+        element: <App />,
+
+      },
+      {
+        path: '/products',
+        element: <FilterProduct />,
+      }
+    ],
   },
   {
-    path: '/entry',
-    element: <StockEntry />,
+    element: <PrivateRouter allowedRoles={['ROOT', 'ADMIN']} />, children: [
+      {
+        path: '/register',
+        element: <Register />,
+      },
+      {
+        path: '/entry',
+        element: <StockEntry />,
+      },
+    ]
+
   },
   {
-    path: '/products',
-    element: <FilterProduct />,
-  },
-]);
+    path: '/not-authorized',
+    element: <NotAuthorized />,
+  }]);
 
 // biome-ignore lint/style/noNonNullAssertion: <explanation>
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <QueryClientProvider client={queryClient}>
-    <React.StrictMode>
-      <RouterProvider router={router} />
-      <Toaster position='top-center' richColors />
-    </React.StrictMode>
-  </QueryClientProvider>
+  <AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <React.StrictMode>
+        <RouterProvider router={router} />
+        <Toaster position='top-center' richColors />
+      </React.StrictMode>
+    </QueryClientProvider>
+  </AuthProvider>
 );

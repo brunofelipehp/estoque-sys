@@ -1,3 +1,4 @@
+import { useAuth } from '@/contexts/AuthContext';
 import { BiFolderPlus } from 'react-icons/bi';
 import { IoHome } from 'react-icons/io5';
 import { MdBusinessCenter } from 'react-icons/md';
@@ -7,6 +8,7 @@ import useMenuStore from '../store/toggleStore';
 
 export function Sidebar() {
   const isOpen = useMenuStore((state) => state.isOpen);
+  const { user } = useAuth();
 
   return (
     <section
@@ -29,26 +31,30 @@ export function Sidebar() {
               </span>
             </Link>
           </li>
-          <li>
-            <Link
-              to={`/register`}
-              className="flex gap-4 text-zinc-50 font-medium items-center"
-            >
-              <BiFolderPlus size={32} />
-              <span className={`${!isOpen ? 'hidden' : 'visible'}`}>
-                Cadastro
-              </span>
-            </Link>
-          </li>
-          <li>
-            <Link
-              to={`/entry`}
-              className="flex gap-4 text-zinc-50 font-medium items-center"
-            >
-              <MdBusinessCenter size={32} />
-              <span className={`${!isOpen ? 'hidden' : 'visible'}`}>Entrada</span>
-            </Link>
-          </li>
+          {user && user.role !== 'USER' && (
+            <li>
+              <Link
+                to={`/register`}
+                className="flex gap-4 text-zinc-50 font-medium items-center"
+              >
+                <BiFolderPlus size={32} />
+                <span className={`${!isOpen ? 'hidden' : 'visible'}`}>
+                  Cadastro
+                </span>
+              </Link>
+            </li>
+          )}
+          {user && user.role !== 'USER' && (
+            <li>
+              <Link
+                to={`/entry`}
+                className="flex gap-4 text-zinc-50 font-medium items-center"
+              >
+                <MdBusinessCenter size={32} />
+                <span className={`${!isOpen ? 'hidden' : 'visible'}`}>Entrada</span>
+              </Link>
+            </li>)}
+
           <li className="flex gap-4 text-zinc-50 font-medium items-center">
             <Link
               to={`/products`}
@@ -61,6 +67,6 @@ export function Sidebar() {
         </ul>
       </nav>
 
-    </section>
+    </section >
   );
 }
