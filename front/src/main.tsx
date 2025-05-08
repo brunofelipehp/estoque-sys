@@ -12,6 +12,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'sonner';
 import { PrivateRouter } from './components/PrivateRouter.tsx';
 import { AuthProvider } from './contexts/AuthContext.tsx';
+import { AdminUsers } from './page/AdminUsers.tsx';
+import { CreateUsers } from './page/CreateUsers.tsx';
 import { Login } from './page/Login.tsx';
 import { NotAuthorized } from './page/NotAuthorized.tsx';
 
@@ -45,6 +47,14 @@ const router = createBrowserRouter([
         path: '/entry',
         element: <StockEntry />,
       },
+      {
+        path: '/user',
+        element: <CreateUsers />,
+      },
+      {
+        path: '/admin-users',
+        element: <AdminUsers />,
+      }
     ]
 
   },
