@@ -12,6 +12,7 @@ import { FiPlusCircle } from "react-icons/fi";
 import { Dashboard } from './Dashboard';
 
 import { Loading } from '@/components/Loading';
+import { useCurrencyFormat } from '@/hooks/useCurrencyFormart';
 import { Link } from 'react-router-dom';
 
 
@@ -21,6 +22,8 @@ export function Main() {
   const page = 1
   const limit = 5;
   const { products, loadingProduct } = useMovementOfProduct(page, limit);
+
+  const { formatCurrencyBrl } = useCurrencyFormat()
 
   return (
     <div className="flex flex-col w-full bg-zinc-50 mt-32">
@@ -41,7 +44,7 @@ export function Main() {
             <TableHeader>
               <TableRow >
                 <TableHead className='text-center'>Nome</TableHead>
-                <TableHead className='text-center'>Fornecdor</TableHead>
+                <TableHead className='text-center'>Fornecedor</TableHead>
                 <TableHead className='text-center'>Preço unidade</TableHead>
                 <TableHead className='text-center'>Quantidade</TableHead>
                 <TableHead className='text-center'>Cores</TableHead>
@@ -64,8 +67,8 @@ export function Main() {
                         return (
                           <TableRow key={product.id} className='text-center'>
                             <TableCell>{product.product.name}</TableCell>
-                            <TableCell>{product.supplier}</TableCell>
-                            <TableCell>{product.price}</TableCell>
+                            <TableCell>{product.product.supplier}</TableCell>
+                            <TableCell>{formatCurrencyBrl(product.price)}</TableCell>
                             <TableCell>{product.quantity}</TableCell>
                             <TableCell>{product.product.color}</TableCell>
                             <TableCell>{product.type == 'IN' ? "Entrada" : "Saída"}</TableCell>

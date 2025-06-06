@@ -19,6 +19,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { useCurrencyFormat } from '@/hooks/useCurrencyFormart';
 import { useMovementOfProduct } from '@/hooks/useFilterProductTable';
 import { filterProductFormSchema, FilterProducts } from '@/schemas/ProductSchema';
 import { StockMovementsProps } from '@/schemas/StockEntrySchema';
@@ -26,7 +27,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { IoSearchOutline } from 'react-icons/io5';
 import { MdLibraryBooks } from 'react-icons/md';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Sidebar } from '../components/Sidebar';
 
 export const FilterProduct = () => {
@@ -61,6 +62,8 @@ export const FilterProduct = () => {
     })
 
   };
+
+  const { formatCurrencyBrl } = useCurrencyFormat();
 
   return (
     <>
@@ -102,7 +105,7 @@ export const FilterProduct = () => {
               <TableHeader>
                 <TableRow>
                   <TableHead className='text-center'>Nome</TableHead>
-                  <TableHead className='text-center'>Fornecdor</TableHead>
+                  <TableHead className='text-center'>Fornecedor</TableHead>
                   <TableHead className='text-center'>Preço unidade</TableHead>
                   <TableHead className='text-center'>Quantidade</TableHead>
                   <TableHead className='text-center'>Cores</TableHead>
@@ -123,15 +126,15 @@ export const FilterProduct = () => {
                         return (
                           <TableRow key={product.id} className='text-center'>
                             <TableCell>{product.product.name}</TableCell>
-                            <TableCell>{product.supplier}</TableCell>
-                            <TableCell>{product.price}</TableCell>
+                            <TableCell>{product.product.supplier}</TableCell>
+                            <TableCell>{formatCurrencyBrl(product.price)}</TableCell>
                             <TableCell>{product.quantity}</TableCell>
                             <TableCell>{product.product.color}</TableCell>
                             <TableCell>{product.type == 'IN' ? "Entrada" : "Saída"}</TableCell>
                             <TableCell>
-                              <a href="" className='text-violetPrimer'>
+                              <Link to={`/product/${product.id}`} className='text-violetPrimer'>
                                 <MdLibraryBooks size={24} />
-                              </a>
+                              </Link>
                             </TableCell>
                           </TableRow>
                         );

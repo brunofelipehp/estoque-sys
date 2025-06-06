@@ -30,9 +30,11 @@ const fetchCreateProduct = async (newProduct: FormData) => {
 
 const fetchProductsById = async (id: string) => {
   try {
-    const response = await api.get(`/products/${id}`);
-    const data = response.data;
-    return data;
+    const response = await api.get(`/movement/${id}`);
+    const {movement, profit, expenses, totalProfit} = response.data;
+  
+    
+    return {movement, profit, expenses, totalProfit};
   } catch (error) {
     console.error('Erro ao buscar produtos:', error);
   }
@@ -62,19 +64,17 @@ export const useFetchPostProduct = () => {
   });
 };
 
-export const useFetchProductById = () => {
-  const queryClient = useQueryClient();
+export const useFetchProductById = (productId: string) => {
+  const {data, isLoading} = useQuery({
+    queryKey: ['product', productId],
+    queryFn: () => fetchProductsById(productId),
+    enabled: !!productId,
+  })
 
-  return useMutation({
-    mutationFn: (productId: string) => fetchProductsById(productId),
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['products'] });
+  const movement = data?.movement || []
+  const profit = data?.profit
+  const expenses = data?.expenses
+  const totalProfit = data?.totalProfit
 
-      return data;
-    },
-    onError: () => {
-      toast.dismiss()
-      toast.error('Erro ao buscar o produto ');
-    },
-  });
+  return { movement, profit, expenses, totalProfit, isLoading}
 };

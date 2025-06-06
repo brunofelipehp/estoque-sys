@@ -16,6 +16,7 @@ import { AdminUsers } from './page/AdminUsers.tsx';
 import { CreateUsers } from './page/CreateUsers.tsx';
 import { Login } from './page/Login.tsx';
 import { NotAuthorized } from './page/NotAuthorized.tsx';
+import { Product } from './page/product.tsx';
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: '/products',
         element: <FilterProduct />,
+      },
+      {
+        path: '/product/:productId',
+        element: <Product />,
       }
     ],
   },

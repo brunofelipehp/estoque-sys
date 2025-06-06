@@ -13,7 +13,7 @@ export const FormProduct = () => {
 
   const { register, handleSubmit, reset, formState: { errors } } = useFormContext<ProductSchema>();
 
-  const { handleImageChange, previewImage, setPreviewImage, sendImage } = useImagePreview();
+  const { handleImageChange, previewImage, setPreviewImage } = useImagePreview();
 
   const { mutateAsync: fetchProduct } = useFetchPostProduct();
 
@@ -25,6 +25,7 @@ export const FormProduct = () => {
     formData.append("size", data.size || '');
     formData.append("category", data.category);
     formData.append("description", data.description);
+    formData.append("supplier", data.supplier)
     formData.append("image", data.image);
 
     await fetchProduct(formData);
@@ -117,6 +118,18 @@ export const FormProduct = () => {
             {...register('size')}
           />
           {errors.size && (<span className='text-red-500 text-sm'>{errors.size.message}</span>)}
+        </div>
+
+        <div>
+          <label className="block" htmlFor='supplier'>Fornecedor</label>
+          <Input
+            type="text"
+            id='supplier'
+            className="border border-zinc-300 w-3/4 p-4 rounded outline-indigo-400"
+            placeholder="Fornecedor"
+            {...register('supplier')}
+          />
+          {errors.supplier && (<span className='text-red-500 text-sm'>{errors.supplier.message}</span>)}
         </div>
 
         <div>

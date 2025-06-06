@@ -18,18 +18,19 @@ export function Sidebar() {
     >
       <nav
         className={`${isOpen
-          ? 'bg-violetPrimer w-[16rem] flex flex-col h-screen  gap-7 transition-all duration-200 ease-in-out'
-          : 'bg-violetPrimer  w-[4.875rem] flex flex-col  h-screen  gap-7 transition-all duration-200 ease-in-out'
+          ? 'bg-violetPrimer w-[16rem] flex flex-col h-screen  transition-all duration-200 ease-in-out'
+          : 'bg-violetPrimer  w-[4.875rem] flex flex-col  h-screen   transition-all duration-200 ease-in-out'
           }`}
       >
-        <ul className="grid ml-5 gap-4">
-          <li>
+        <ul className="grid">
+          <li className='text-zinc-50 hover:bg-violet-600 hover:text-zinc-800 p-4 transition-all duration-500'>
             <Link
               to={`/`}
-              className="flex gap-4 text-zinc-50 font-medium mt-5 items-center"
+              className="flex gap-4  font-medium mt-2 items-center
+              "
             >
               <IoHome size={28} />
-              <span className={`whitespace-nowrap overflow-hidden transition-all duration-300
+              <span className={`whitespace-nowrap overflow-hidden
         ${isOpen ? 'max-w-[200px] opacity-100' : 'max-w-0 opacity-0'}
       `}>
                 Home
@@ -37,13 +38,13 @@ export function Sidebar() {
             </Link>
           </li>
           {user && user.role !== 'USER' && (
-            <li>
+            <li className='text-zinc-50 hover:bg-violet-600 hover:text-zinc-800 p-4 transition-all duration-500'>
               <Link
                 to={`/register`}
-                className="flex gap-4 text-zinc-50 font-medium items-center"
+                className="flex gap-4 font-medium items-center"
               >
                 <BiFolderPlus size={28} />
-                <span className={`whitespace-nowrap overflow-hidden transition-all duration-300
+                <span className={`whitespace-nowrap overflow-hidden
         ${isOpen ? 'max-w-[200px] opacity-100' : 'max-w-0 opacity-0'}
       `}>
                   Cadastro
@@ -52,37 +53,37 @@ export function Sidebar() {
             </li>
           )}
           {user && user.role !== 'USER' && (
-            <li>
+            <li className='text-zinc-50 hover:bg-violet-600 hover:text-zinc-800 p-4 transition-all duration-500'>
               <Link
                 to={`/entry`}
-                className="flex gap-4 text-zinc-50 font-medium items-center"
+                className="flex gap-4 font-medium items-center"
               >
                 <MdBusinessCenter size={28} />
-                <span className={`whitespace-nowrap overflow-hidden transition-all duration-300
+                <span className={`whitespace-nowrap overflow-hidden 
         ${isOpen ? 'max-w-[200px] opacity-100' : 'max-w-0 opacity-0'}
       `}>Entrada</span>
               </Link>
             </li>)}
 
-          <li>
+          <li className='text-zinc-50 hover:bg-violet-600 hover:text-zinc-800 p-4 transition-all duration-500'>
             <Link
               to={`/products`}
-              className="flex gap-4 text-zinc-50 font-medium items-center"
+              className="flex gap-4 font-medium items-center"
             >
               <RxLayers size={28} />
-              <span className={`whitespace-nowrap overflow-hidden transition-all duration-300
+              <span className={`whitespace-nowrap overflow-hidden
         ${isOpen ? 'max-w-[200px] opacity-100' : 'max-w-0 opacity-0'}
       `}>filtro</span>
             </Link>
           </li>
           {user && user.role !== 'USER' && user.role !== 'EDITOR' && (
-            <li>
+            <li className='text-zinc-50 hover:bg-violet-600 hover:text-zinc-800 p-4 transition-all duration-500'>
               <Link
                 to={`/user`}
-                className="flex gap-4 text-zinc-50 font-medium items-center transition-all w-full"
+                className="flex gap-4 font-medium items-center"
               >
                 <FaUser size={28} />
-                <span className={`whitespace-nowrap overflow-hidden transition-all duration-300
+                <span className={`whitespace-nowrap overflow-hidden
         ${isOpen ? 'max-w-[200px] opacity-100' : 'max-w-0 opacity-0'}
       `}>
                   Cadastro de usuário
@@ -91,13 +92,13 @@ export function Sidebar() {
             </li>
           )}
           {user && user.role !== 'USER' && user.role !== 'EDITOR' && (
-            <li>
+            <li className='text-zinc-50 hover:bg-violet-600 hover:text-zinc-800 p-4 transition-all duration-500'>
               <Link
                 to={`/admin-users`}
-                className="flex gap-4 text-zinc-50 font-medium items-center"
+                className="flex gap-4 font-medium items-center w-full"
               >
                 <FaUserFriends size={28} />
-                <span className={`whitespace-nowrap overflow-hidden transition-all duration-300
+                <span className={`whitespace-nowrap overflow-hidden
         ${isOpen ? 'max-w-[200px] opacity-100' : 'max-w-0 opacity-0'}
       `}>
                   Usuários

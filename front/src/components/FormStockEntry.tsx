@@ -53,7 +53,6 @@ export const FormStockEntry = () => {
       const productEntry: stockEntriesProps = {
         productId,
         price: data.price,
-        supplier: data.supplier,
         quantity: data.quantity,
         type,
       };
@@ -92,17 +91,7 @@ export const FormStockEntry = () => {
 
         {errors.name?.value && (<span className='text-red-500 text-sm'>{errors.name.value.message}</span>)}
 
-        <div>
-          <label className="block" htmlFor='supplier'>Fornecedor</label>
-          <Input
-            type="text"
-            id='supplier'
-            className="border border-zinc-300 w-3/4 p-4 rounded outline-indigo-400"
-            placeholder="Fornecedor"
-            {...register('supplier')}
-          />
-          {errors.supplier && (<span className='text-red-500 text-sm'>{errors.supplier.message}</span>)}
-        </div>
+
 
         <div className="grid grid-cols-2 w-full gap-2 ">
           <div className="">

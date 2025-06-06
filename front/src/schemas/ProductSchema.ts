@@ -6,6 +6,7 @@ export const createProductSchema = z.object({
   description: z.string().min(1, { message: '*Digite a descrição' }),
   color: z.string().min(1, { message: '*Digite a cor do produto' }),
   size: z.string().optional(),
+   supplier: z.string().min(1, { message: '*Digite  o nome do fornecedor' }),
   image: z
     .instanceof(File)
     .refine((file) => file.type.startsWith("image/"), "Apenas arquivos de imagem são permitidos"),

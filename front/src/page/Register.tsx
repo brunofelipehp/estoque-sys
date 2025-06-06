@@ -17,6 +17,7 @@ export const Register = () => {
       size: '',
       category: '',
       description: '',
+      supplier: '',
       image: undefined
     }
   });

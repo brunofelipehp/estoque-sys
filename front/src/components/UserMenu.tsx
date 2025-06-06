@@ -23,14 +23,6 @@ export const UserMenu = () => {
     navigate('/login');
   }
   return (
-    // <div className="flex gap-4 items-center">
-    //   <span>
-    //     <img src={`https://ui-avatars.com/api/?name=${userData?.name}`} />
-    //   </span>
-    //   <span>
-
-    //   </span>
-    // </div>
     <DropdownMenu>
       <DropdownMenuTrigger className="rounded-lg mr-20">
         <div >

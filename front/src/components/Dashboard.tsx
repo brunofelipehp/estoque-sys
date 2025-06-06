@@ -1,3 +1,4 @@
+import { useCurrencyFormat } from '@/hooks/useCurrencyFormart';
 import { useMovementOfProduct } from '@/hooks/useFilterProductTable';
 import { FaMoneyBillTransfer, FaMoneyBillTrendUp } from 'react-icons/fa6';
 import { MdOutlineWallet } from 'react-icons/md';
@@ -9,6 +10,8 @@ export function Dashboard() {
   //const limit = 5;
 
   const { profit, expenses, totalProfit } = useMovementOfProduct(page);
+
+  const { formatCurrencyBrl } = useCurrencyFormat()
 
 
   return (
@@ -22,8 +25,8 @@ export function Dashboard() {
           </div>
         </CardHeader>
         <CardContent className="flex gap-2">
-          <span>R$</span>
-          <span>{expenses}</span>
+
+          <span>{formatCurrencyBrl(expenses)}</span>
         </CardContent>
       </Card>
 
@@ -35,8 +38,8 @@ export function Dashboard() {
           </div>
         </CardHeader>
         <CardContent className="flex gap-2">
-          <span>R$</span>
-          <span>{profit}</span>
+
+          <span>{formatCurrencyBrl(profit)}</span>
         </CardContent>
       </Card>
       <Card className="w-60 h-40">
@@ -47,8 +50,8 @@ export function Dashboard() {
           </div>
         </CardHeader>
         <CardContent className="flex gap-2">
-          <span>R$</span>
-          <span>{totalProfit}</span>
+
+          <span>{formatCurrencyBrl(totalProfit)}</span>
         </CardContent>
       </Card>
     </div>

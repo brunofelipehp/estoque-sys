@@ -12,7 +12,7 @@ export const stockEntryFormSchema = z.object({
     })
     .min(0.01, { message: '*O preço de custo deve ser maior que 0' })
     .positive({message:  '*O preço de venda deve ser maior que 0'}),
-    supplier: z.string().min(1, { message: '*Digite  o nome do fornecedor' }),
+   
   quantity: z.coerce
     .number({
       required_error: '*A quantidade é obrigatória',
@@ -32,7 +32,6 @@ export type SchemaStockEntry = z.infer<typeof stockEntryFormSchema>;
 
 export interface stockEntriesProps {
   productId: string;
-  supplier: string;
   price: number;
   quantity: number;
   type: string;
@@ -41,7 +40,14 @@ export interface stockEntriesProps {
 export interface StockMovementsProps extends stockEntriesProps {
   id: string;
   product: {
-    name: string;
-    color: string;
+  name: string;
+  color: string;
+  category: string;
+  size: string | null;
+  description: string;
+  supplier: string;
+  stock: number;
+  imageUrl: string;
+
   }
 }
