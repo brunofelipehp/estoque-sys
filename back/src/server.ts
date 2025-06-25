@@ -16,14 +16,6 @@ app.register(fastifyJwt, {
   secret: process.env.SECRET_JWT as string,
 });
 
-// app.decorate('authenticate', async (request: FastifyRequest, reply: FastifyReply) => {
-//   try {
-//     await request.jwtVerify();
-//   } catch (error) {
-//     reply.code(401).send({ message: 'Unauthorized', error });
-//   }
-// });
-
 app.register(fastifyMultipart);
 
 app.register(require('@fastify/static'), {
@@ -35,7 +27,7 @@ app.register(productsRouters);
 app.register(movementsRouters);
 app.register(userRouters);
 
-app.listen({ port: 7000 }).then((address) => {
+app.listen({ port: Number(process.env.Port || 7000), host: '0.0.0.0' }).then((address) => {
   console.log('Http server running in port 7000');
   console.log(`Server listening on ${address}`);
 });
