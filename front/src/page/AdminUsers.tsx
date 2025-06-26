@@ -10,42 +10,22 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { useFindAllUsers } from '@/hooks/useUsers';
-import { FilterProducts } from '@/schemas/ProductSchema';
 import { UserTableProps } from '@/schemas/UserSchema';
 import { MdLibraryBooks } from 'react-icons/md';
 import { useSearchParams } from 'react-router-dom';
 import { Sidebar } from '../components/Sidebar';
 
 export const AdminUsers = () => {
-  const limit = 10;
+
 
   const [searchParams, setSearchParams] = useSearchParams();
 
   const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
 
-  const productName = searchParams.get('productName') ? String(searchParams.get('productName')) : '';
-  const type = searchParams.get('type') ? String(searchParams.get('type')) : '';
+
 
   const { users, isLoading } = useFindAllUsers();
 
-
-
-
-
-  const searchProduct = async (data: FilterProducts) => {
-    const { name, type } = data;
-
-    setSearchParams(params => {
-      params.set('productName', String(name))
-      return params
-    })
-
-    setSearchParams(params => {
-      params.set('type', String(type))
-      return params
-    })
-
-  };
 
   return (
     <>
