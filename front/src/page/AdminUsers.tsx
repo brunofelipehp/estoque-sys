@@ -12,13 +12,10 @@ import {
 import { useFindAllUsers } from '@/hooks/useUsers';
 import { UserTableProps } from '@/schemas/UserSchema';
 import { MdLibraryBooks } from 'react-icons/md';
-import { useSearchParams } from 'react-router-dom';
 import { Sidebar } from '../components/Sidebar';
 
 export const AdminUsers = () => {
 
-
-  const [searchParams] = useSearchParams();
 
 
 
@@ -79,7 +76,7 @@ export const AdminUsers = () => {
             </Table>
 
           </div>
-          {/* <PaginationForm page={page} pages={totalPages} /> */}
+
         </div>
       </div>
     </>
