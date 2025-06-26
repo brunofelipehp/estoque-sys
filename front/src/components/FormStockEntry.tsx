@@ -68,7 +68,7 @@ export const FormStockEntry = () => {
   };
 
   return (
-    <div className="flex justify-center  mt-24 w-full">
+    <div className="flex justify-center  mt-24 w-full h-screen">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-3/6 flex flex-col gap-4"

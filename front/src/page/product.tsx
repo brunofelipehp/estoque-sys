@@ -28,7 +28,7 @@ export const Product = () => {
   return (
     <>
       <Header />
-      <div className="flex  bg-zinc-50 h-screen">
+      <div className="flex  bg-zinc-50">
         <Sidebar />
         <div className="flex justify-center w-full">
           {isLoading ? (

@@ -10,7 +10,7 @@ export function Header() {
 
   return (
     <div className="flex justify-between items-center bg-zinc-800 w-full p-1 text-zinc-50">
-      <div className="bg-zinc-800 w-full p-1 text-zinc-50 flex gap-16 items-center">
+      <div className="bg-zinc-800 w-full p-1 text-zinc-50 flex gap-32 items-center">
         <h1 className="text-3xl font-bold">
           <a href="/"> <img
             src="../public/1.svg"

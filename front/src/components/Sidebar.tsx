@@ -18,8 +18,8 @@ export function Sidebar() {
     >
       <nav
         className={`${isOpen
-          ? 'bg-violetPrimer w-[16rem] flex flex-col h-screen  transition-all duration-200 ease-in-out'
-          : 'bg-violetPrimer  w-[4.875rem] flex flex-col  h-screen   transition-all duration-200 ease-in-out'
+          ? 'bg-violetPrimer w-[16rem] flex flex-col h-full  transition-all duration-200 ease-in-out'
+          : 'bg-violetPrimer  w-[4.875rem] flex flex-col  h-full   transition-all duration-200 ease-in-out'
           }`}
       >
         <ul className="grid">

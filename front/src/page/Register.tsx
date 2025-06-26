@@ -25,7 +25,7 @@ export const Register = () => {
   return (
     <>
       <Header />
-      <div className="flex  bg-zinc-50 h-screen">
+      <div className="flex  bg-zinc-50 ">
         <Sidebar />
         <FormProvider {...methods}>
           <FormProduct />

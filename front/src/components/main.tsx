@@ -13,6 +13,7 @@ import { Dashboard } from './Dashboard';
 
 import { Loading } from '@/components/Loading';
 import { useCurrencyFormat } from '@/hooks/useCurrencyFormart';
+import { MdLibraryBooks } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 
 
@@ -52,36 +53,38 @@ export function Main() {
               </TableRow>
             </TableHeader>
             <TableBody >
-              {loadingProduct ? (
+              {loadingProduct ?
                 <TableRow>
                   <TableCell colSpan={6} className='relative'>
                     <Loading />
                   </TableCell>
                 </TableRow>
-              ) :
-
-                (
-                  <>
-                    {products ? (
-                      products.map((product: StockMovementsProps) => {
-                        return (
-                          <TableRow key={product.id} className='text-center'>
-                            <TableCell>{product.product.name}</TableCell>
-                            <TableCell>{product.product.supplier}</TableCell>
-                            <TableCell>{formatCurrencyBrl(product.price)}</TableCell>
-                            <TableCell>{product.quantity}</TableCell>
-                            <TableCell>{product.product.color}</TableCell>
-                            <TableCell>{product.type == 'IN' ? "Entrada" : "Saída"}</TableCell>
-                          </TableRow>
-                        );
-                      })
-                    ) : (
-                      <TableRow>
-                        <TableCell colSpan={6} className='text-center'>Não há registro de produto</TableCell>
-                      </TableRow>
-                    )}
-                  </>
-                )
+                :
+                <>
+                  {products && products.length > 0 ? (
+                    products.map((product: StockMovementsProps) => {
+                      return (
+                        <TableRow key={product.id} className='text-center'>
+                          <TableCell>{product.product.name}</TableCell>
+                          <TableCell>{product.product.supplier}</TableCell>
+                          <TableCell>{formatCurrencyBrl(product.price)}</TableCell>
+                          <TableCell>{product.quantity}</TableCell>
+                          <TableCell>{product.product.color}</TableCell>
+                          <TableCell>{product.type == 'IN' ? "Entrada" : "Saída"}</TableCell>
+                          <TableCell>
+                            <Link to={`/product/${product.id}`} className='text-violetPrimer'>
+                              <MdLibraryBooks size={24} />
+                            </Link>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })
+                  ) : (
+                    <TableRow>
+                      <TableCell colSpan={6} className='text-center'>Não há registro de produto</TableCell>
+                    </TableRow>
+                  )}
+                </>
               }
 
 
