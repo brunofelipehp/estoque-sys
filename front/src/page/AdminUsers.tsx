@@ -18,7 +18,7 @@ import { Sidebar } from '../components/Sidebar';
 export const AdminUsers = () => {
 
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
 
