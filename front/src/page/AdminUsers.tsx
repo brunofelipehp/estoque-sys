@@ -20,8 +20,6 @@ export const AdminUsers = () => {
 
   const [searchParams] = useSearchParams();
 
-  const page = searchParams.get('page') ? Number(searchParams.get('page')) : 1;
-
 
 
   const { users, isLoading } = useFindAllUsers();
