@@ -2,6 +2,7 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 import { IoCloseSharp } from "react-icons/io5";
 
 import useMenuStore from '../store/toggleStore';
+import logo from './../assets/1.svg';
 import { UserMenu } from './UserMenu';
 
 export function Header() {
@@ -13,7 +14,7 @@ export function Header() {
       <div className="bg-zinc-800 w-full p-1 text-zinc-50 flex gap-32 items-center">
         <h1 className="text-3xl font-bold">
           <a href="/"> <img
-            src="../public/1.svg"
+            src={logo}
             alt="Image"
             className="h-14 w-20  "
           /></a>

@@ -1,4 +1,5 @@
 import { FormLogin } from "@/components/FormLogin";
+import logo from '../assets/1.svg';
 
 export const Login = () => {
 
@@ -12,7 +13,7 @@ export const Login = () => {
       </div>
       <div className=" relative hidden lg:block">
         <img
-          src="../public/1.svg"
+          src={logo}
           alt="Image"
           className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
         />
