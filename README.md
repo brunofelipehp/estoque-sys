@@ -38,6 +38,7 @@ cd estoque-sys
 ### 2. Subir serviços com Docker
 
 ```bash
+No docker-compe.yml defina as senhas e usuarios para postgreSQL e minIO
 docker-compose up --build
 ```
 
@@ -48,8 +49,8 @@ Isso iniciará:
 
 MinIO:
 
-- Usuário: `brunohp`
-- Senha: `brunohp3008`
+- Usuário: `O user definido no docker`
+- Senha: `A senha definida no docker`
 - Bucket: `uploads`
 
 ### 3. Backend
