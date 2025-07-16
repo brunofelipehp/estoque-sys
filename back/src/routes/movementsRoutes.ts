@@ -1,10 +1,5 @@
 import { FastifyInstance } from 'fastify';
-import {
-  createMovementController,
-  getMovementByIdController,
-  getMovementsAllController,
-  getMovementsPerProductController,
-} from '../controllers/movementController';
+import { movementController } from '../controllers/movementController';
 import { CheckRole } from '../middlewares/checkRole';
 import { verifyJwt } from '../middlewares/verify';
 
@@ -25,24 +20,24 @@ export async function movementsRouters(app: FastifyInstance) {
       },
       preHandler: [verifyJwt, CheckRole(['ROOT', 'ADMIN', 'EDITOR', 'USER'])],
     },
-    getMovementsAllController,
+    movementController.getMovementsAllControllers,
   );
 
   app.get(
     '/movement/:id',
     { preHandler: [verifyJwt, CheckRole(['ROOT', 'ADMIN', 'EDITOR', 'USER'])] },
-    getMovementByIdController,
+    movementController.getMovementByIdControllers,
   );
 
   app.post(
     '/movement',
     { preHandler: [verifyJwt, CheckRole(['ROOT', 'ADMIN', 'EDITOR'])] },
-    createMovementController,
+    movementController.createMovementControllers,
   );
 
   app.get(
     '/movements/product/:id',
     { preHandler: [verifyJwt, CheckRole(['ROOT', 'ADMIN', 'EDITOR', 'USER'])] },
-    getMovementsPerProductController,
+    movementController.getMovementsPerProductControllers,
   );
 }

@@ -17,6 +17,8 @@ export const queryPagesParamsSchema = z.object({
   type: z.string().optional(),
 });
 
+export type findAllMovementsByProductDto = z.infer<typeof queryPagesParamsSchema>;
+
 interface ProductFields {
   [key: string]: { value: string | undefined | MultipartFields };
 }

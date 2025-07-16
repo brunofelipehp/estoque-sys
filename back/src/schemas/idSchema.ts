@@ -9,3 +9,5 @@ export const idUser = z.object({
     id: z.string().uuid(),
   }),
 });
+
+export type FindMovementDto = z.infer<typeof idParamSchema>;
