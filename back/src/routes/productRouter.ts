@@ -1,11 +1,5 @@
 import { FastifyInstance } from 'fastify';
-import {
-  createProductController,
-  deleteProductController,
-  getProductByIdController,
-  getProductsAllController,
-  updateProductController,
-} from '../controllers/productsController';
+import { productController } from '../controllers/productsController';
 import { CheckRole } from '../middlewares/checkRole';
 import { verifyJwt } from '../middlewares/verify';
 
@@ -13,30 +7,30 @@ export async function productsRouters(app: FastifyInstance) {
   app.get(
     '/products',
     { preHandler: [verifyJwt, CheckRole(['ROOT', 'ADMIN', 'EDITOR', 'USER'])] },
-    getProductsAllController,
+    productController.findAllProducts,
   );
 
   app.get(
     '/product/:id',
     { preHandler: [verifyJwt, CheckRole(['ROOT', 'ADMIN', 'EDITOR', 'USER'])] },
-    getProductByIdController,
+    productController.findProductById,
   );
 
   app.post(
     '/product',
     { preHandler: [verifyJwt, CheckRole(['ROOT', 'ADMIN'])] },
-    createProductController,
+    productController.createProduct,
   );
 
   app.put(
     '/product/:id',
     { preHandler: [verifyJwt, CheckRole(['ROOT', 'ADMIN'])] },
-    updateProductController,
+    productController.updateProduct,
   );
 
   app.delete(
     '/product/:id',
     { preHandler: [verifyJwt, CheckRole(['ROOT', 'ADMIN'])] },
-    deleteProductController,
+    productController.deleteProduct,
   );
 }

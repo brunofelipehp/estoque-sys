@@ -11,3 +11,4 @@ export const idUser = z.object({
 });
 
 export type FindMovementDto = z.infer<typeof idParamSchema>;
+export type FindProductDto = FindMovementDto;
