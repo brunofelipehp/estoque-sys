@@ -6,3 +6,5 @@ export const userBodySchema = z.object({
   password: z.string().min(6, { message: 'Password must be at least 6 characters long' }),
   role: z.enum(['ROOT', 'ADMIN', 'EDITOR', 'USER']),
 });
+
+export type userDto = z.infer<typeof userBodySchema>;
