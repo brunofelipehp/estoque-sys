@@ -11,5 +11,5 @@ export async function userRouters(app: FastifyInstance) {
     userController.findUserById,
   );
   app.post('/user', { preHandler: CheckRole(['ADMIN', 'ROOT']) }, userController.createUser);
-  app.post('/login', loginController);
+  app.post('/login', loginController.login);
 }
